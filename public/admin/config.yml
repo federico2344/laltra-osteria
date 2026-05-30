@@ -80,10 +80,7 @@ collections:
             collapsed: true
             summary: "{{title}}"
             fields:
-              - name: "id"
-                label: "ID categoria"
-                widget: "string"
-                hint: "⚠️ Non modificare: pranzo / serale / degustazione"
+              - { name: "id", widget: "hidden" }
               - { name: "title", label: "Titolo tab", widget: "string", required: true }
               - { name: "description", label: "Descrizione", widget: "text", required: false }
               - name: "sections"
@@ -147,10 +144,7 @@ collections:
             collapsed: true
             summary: "{{title}}"
             fields:
-              - name: "id"
-                label: "ID categoria"
-                widget: "string"
-                hint: "⚠️ Non modificare"
+              - { name: "id", widget: "hidden" }
               - { name: "title", label: "Titolo categoria (es. Bianchi)", widget: "string", required: true }
               - name: "items"
                 label: "Vini"
