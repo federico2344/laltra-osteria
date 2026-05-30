@@ -180,8 +180,24 @@
           var addr = data.get('address');
           var hours = data.get('hours');
           var social = data.get('social');
+          var slides = data.get('heroSlides');
+          var getAsset = this.props.getAsset;
 
           return h('div', {},
+            slides && slides.size > 0 && h('div', {},
+              h('h2', {}, 'Slideshow home'),
+              h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.5rem', marginBottom: '1.5rem' } },
+                slides.map(function(src, i) {
+                  var url = src && (typeof src === 'string' ? src : src.get && src.get('src'));
+                  if (!url) return null;
+                  var asset = getAsset ? getAsset(url) : url;
+                  return h('div', { key: i, style: { position: 'relative', aspectRatio: '16/10', borderRadius: '8px', overflow: 'hidden', background: '#eee' } },
+                    h('img', { src: asset.toString ? asset.toString() : asset, style: { width: '100%', height: '100%', objectFit: 'cover' } }),
+                    h('div', { style: { position: 'absolute', top: 6, left: 6, background: 'rgba(0,0,0,0.6)', color: 'white', padding: '2px 8px', borderRadius: '10px', fontSize: '0.7rem', fontWeight: 700 } }, 'Foto ' + (i + 1))
+                  );
+                })
+              )
+            ),
             h('div', { className: 'eyebrow' }, addr ? addr.get('street') + ' · Roma' : ''),
             h('h1', {}, data.get('name') || '—'),
             h('p', { style: { fontStyle: 'italic', marginBottom: '1.5rem' } }, data.get('tagline') || ''),
