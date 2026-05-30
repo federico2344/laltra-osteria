@@ -6,7 +6,7 @@ media_folder: "public/images"
 public_folder: "/images"
 
 locale: "it"
-logo_url: /images/logo.png
+logo_url: /images/general/logo.png
 
 collections:
 
@@ -81,8 +81,17 @@ collections:
             label: "Foto slideshow (home)"
             label_singular: "Foto"
             widget: "list"
-            hint: "Le foto scorrono automaticamente nella home. Consigliato: 4-6 foto orizzontali."
-            field: { name: "src", label: "Foto", widget: "image" }
+            min: 1
+            hint: "Le foto scorrono automaticamente nella home, nell'ordine in cui appaiono qui. Trascina per riordinare. Consigliato: foto orizzontali e luminose."
+            field:
+              name: "src"
+              label: "Foto slideshow"
+              widget: "image"
+              media_folder: "/public/images/hero"
+              public_folder: "/images/hero"
+              media_library:
+                config:
+                  multiple: false
 
   # ---------------------------------------------------------------------------
   # 2) MENÙ
@@ -149,7 +158,13 @@ collections:
               - { name: "role", label: "Ruolo (es. Lo Chef)", widget: "string", required: true }
               - { name: "name", label: "Nome e cognome", widget: "string", required: true }
               - { name: "text", label: "Biografia", widget: "text", required: true }
-              - { name: "photo", label: "Foto", widget: "image", required: false }
+              - name: "photo"
+                label: "Foto"
+                widget: "image"
+                required: false
+                hint: "Consigliato: foto verticale del volto, ben illuminata."
+                media_folder: "/public/images/team"
+                public_folder: "/images/team"
 
   # ---------------------------------------------------------------------------
   # 4) CARTA DEI VINI

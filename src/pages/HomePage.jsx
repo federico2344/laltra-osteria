@@ -38,7 +38,7 @@ export default function HomePage() {
             {/* Due tessere "atmosfera": immagini con fallback colore */}
             <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-blush">
               <img
-                src="/images/1.jpg"
+                src="/images/general/1.jpg"
                 alt=""
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -47,7 +47,7 @@ export default function HomePage() {
             </div>
             <div className="mt-8 aspect-[3/4] overflow-hidden rounded-2xl bg-olive/20">
               <img
-                src="/images/2.webp"
+                src="/images/general/2.webp"
                 alt=""
                 className="h-full w-full object-cover"
                 loading="lazy"

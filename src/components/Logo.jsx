@@ -16,7 +16,7 @@ export default function Logo({ variant = 'dark', className = '' }) {
   if (!broken) {
     return (
       <img
-        src="/images/logo.png"
+        src="/images/general/logo.png"
         alt="L'Altra Osteria Roma"
         className={className}
         onError={() => setBroken(true)}
