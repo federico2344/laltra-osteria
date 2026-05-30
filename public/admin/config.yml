@@ -6,6 +6,7 @@ media_folder: "public/images"
 public_folder: "/images"
 
 locale: "it"
+logo_url: /images/logo.png
 
 collections:
 
@@ -23,7 +24,7 @@ collections:
           - { name: "tagline", label: "Tagline (sotto il nome)", widget: "string" }
           - { name: "intro", label: "Testo introduttivo (home)", widget: "text" }
           - { name: "phone", label: "Telefono (es. +39 06 8952 4311)", widget: "string" }
-          - { name: "phoneRaw", label: "Telefono solo cifre (es. 390689524311)", widget: "string" }
+          - { name: "phoneRaw", label: "Telefono solo cifre (es. 390689524311)", widget: "string", hint: "Solo numeri, niente spazi o simboli. Usato per il link di chiamata diretta." }
           - { name: "email", label: "Email", widget: "string" }
           - name: "address"
             label: "Indirizzo"
@@ -52,6 +53,7 @@ collections:
             label: "Foto slideshow (home)"
             label_singular: "Foto"
             widget: "list"
+            hint: "Le foto scorrono automaticamente nella home. Consigliato: 4-6 foto orizzontali."
             field: { name: "src", label: "Foto", widget: "image" }
 
   # ---------------------------------------------------------------------------
@@ -69,7 +71,7 @@ collections:
             label_singular: "Categoria"
             widget: "list"
             fields:
-              - { name: "id", label: "ID (non modificare: pranzo / serale / degustazione)", widget: "string" }
+              - { name: "id", label: "ID categoria", widget: "string", hint: "⚠️ Non modificare: pranzo / serale / degustazione" }
               - { name: "title", label: "Titolo tab", widget: "string" }
               - { name: "description", label: "Descrizione", widget: "text", required: false }
               - name: "sections"
@@ -125,7 +127,7 @@ collections:
             label_singular: "Categoria"
             widget: "list"
             fields:
-              - { name: "id", label: "ID (non modificare)", widget: "string" }
+              - { name: "id", label: "ID categoria", widget: "string", hint: "⚠️ Non modificare" }
               - { name: "title", label: "Titolo categoria (es. Bianchi)", widget: "string" }
               - name: "items"
                 label: "Vini"

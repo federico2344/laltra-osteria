@@ -5,10 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>L'Altra Osteria · Pannello di gestione</title>
+    <style>
+      /* Colori brand al posto del viola Decap */
+      :root {
+        --primary: #8B1A1A;
+        --primary-dark: #6B0F0F;
+      }
+      /* Header */
+      header[class*="AppHeader"],
+      [class*="AppHeader"] {
+        background: #2B2622 !important;
+      }
+      /* Pulsanti primari */
+      [class*="Button"][class*="primary"],
+      button[class*="success"] {
+        background-color: #8B1A1A !important;
+        border-color: #8B1A1A !important;
+      }
+      [class*="Button"][class*="primary"]:hover {
+        background-color: #6B0F0F !important;
+      }
+      /* Link e accenti attivi */
+      [class*="NavLink"][class*="isActive"],
+      [class*="active"] > a {
+        color: #8B1A1A !important;
+        border-color: #8B1A1A !important;
+      }
+      /* Sidebar navigazione */
+      [class*="Sidebar"],
+      [class*="CollectionList"] {
+        background: #FAF6F0 !important;
+      }
+      /* Titolo pannello */
+      [class*="AppHeaderTitle"] {
+        font-family: Georgia, serif !important;
+        letter-spacing: 0.05em;
+      }
+    </style>
   </head>
   <body>
-    <!-- Decap CMS: l'intera interfaccia di amministrazione vive in questo script.
-         Il pannello sarà raggiungibile su https://iltuosito.netlify.app/admin/ -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
