@@ -30,20 +30,29 @@ collections:
             required: true
             hint: "⚠️ Solo numeri, niente spazi o simboli. Es: 390689524311"
             pattern: ['^\d+$', "Inserire solo cifre, senza spazi o simboli"]
-          - { name: "email", label: "Email", widget: "string", required: true }
+          - name: "email"
+            label: "Email"
+            widget: "string"
+            required: true
+            pattern: ['^[^\s@]+@[^\s@]+\.[^\s@]+$', "Inserire un'email valida (es. info@ristorante.it)"]
           - name: "address"
             label: "Indirizzo"
             widget: "object"
             fields:
               - { name: "street", label: "Via e numero civico", widget: "string", required: true }
               - { name: "city", label: "CAP e città", widget: "string", required: true }
-              - { name: "mapsUrl", label: "Link Google Maps", widget: "string", required: false }
+              - name: "mapsUrl"
+                label: "Link Google Maps"
+                widget: "string"
+                required: false
+                pattern: ['^https://.+', "Deve iniziare con https://"]
           - name: "hours"
             label: "Orari di apertura"
             label_singular: "Fascia oraria"
             widget: "list"
             collapsed: true
             summary: "{{day}}"
+            min: 1
             fields:
               - { name: "day", label: "Giorni (es. Martedì – Sabato)", widget: "string", required: true }
               - { name: "lunch", label: "Orario pranzo (es. 13:00 – 14:45)", widget: "string", required: false }
@@ -53,9 +62,21 @@ collections:
             label: "Social"
             widget: "object"
             fields:
-              - { name: "instagram", label: "Link Instagram", widget: "string", required: false }
-              - { name: "facebook", label: "Link Facebook", widget: "string", required: false }
-              - { name: "tripadvisor", label: "Link Tripadvisor", widget: "string", required: false }
+              - name: "instagram"
+                label: "Link Instagram"
+                widget: "string"
+                required: false
+                pattern: ['^https://(www\.)?instagram\.com/.+', "Deve essere un link Instagram (es. https://www.instagram.com/laltraosteria/)"]
+              - name: "facebook"
+                label: "Link Facebook"
+                widget: "string"
+                required: false
+                pattern: ['^https://(www\.)?facebook\.com/.+', "Deve essere un link Facebook (es. https://www.facebook.com/laltraosteria)"]
+              - name: "tripadvisor"
+                label: "Link Tripadvisor"
+                widget: "string"
+                required: false
+                pattern: ['^https://(www\.)?tripadvisor\.(it|com)/.+', "Deve essere un link Tripadvisor"]
           - name: "heroSlides"
             label: "Foto slideshow (home)"
             label_singular: "Foto"
@@ -79,6 +100,8 @@ collections:
             widget: "list"
             collapsed: true
             summary: "{{title}}"
+            min: 1
+            max: 10
             fields:
               - { name: "id", widget: "hidden" }
               - { name: "title", label: "Titolo tab", widget: "string", required: true }
@@ -89,6 +112,7 @@ collections:
                 widget: "list"
                 collapsed: true
                 summary: "{{title}}"
+                min: 1
                 fields:
                   - { name: "title", label: "Titolo sezione (es. Antipasti)", widget: "string", required: false }
                   - { name: "note", label: "Nota sotto il titolo", widget: "string", required: false }
@@ -120,6 +144,7 @@ collections:
             widget: "list"
             collapsed: true
             summary: "{{name}} — {{role}}"
+            min: 1
             fields:
               - { name: "role", label: "Ruolo (es. Lo Chef)", widget: "string", required: true }
               - { name: "name", label: "Nome e cognome", widget: "string", required: true }
@@ -143,6 +168,7 @@ collections:
             widget: "list"
             collapsed: true
             summary: "{{title}}"
+            min: 1
             fields:
               - { name: "id", widget: "hidden" }
               - { name: "title", label: "Titolo categoria (es. Bianchi)", widget: "string", required: true }
