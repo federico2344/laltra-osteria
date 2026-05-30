@@ -1,0 +1,135 @@
+# =============================================================================
+#  Decap CMS — Configurazione pannello L'Altra Osteria
+# =============================================================================
+#  Questo file definisce COSA può modificare il ristoratore dal pannello /admin.
+#  Ogni "collection" qui sotto corrisponde a una porzione del data layer in
+#  src/data/siteData.js. I nomi dei campi (name:) combaciano con le chiavi degli
+#  oggetti JS: così il passaggio da dati statici a dati da CMS è 1:1.
+#
+#  IMPORTANTE — backend:
+#  Decap salva i contenuti committando file nel repository GitHub. Per farlo in
+#  produzione serve l'autenticazione. Due opzioni:
+#   1) Netlify Identity + Git Gateway (semplice, gestito da Netlify).
+#   2) GitHub OAuth diretto.
+#  Sotto è configurata l'opzione Git Gateway. Per provare in locale senza login,
+#  vedi la nota "local_backend" nel README.
+# =============================================================================
+
+backend:
+  name: git-gateway
+  branch: main # branch su cui Decap committa le modifiche
+
+# Cartella dove vengono caricate le immagini dal pannello
+media_folder: "public/images"   # dove i file vengono salvati nel repo
+public_folder: "/images"        # come vengono referenziati nel sito
+
+locale: "it"
+
+collections:
+  # ---------------------------------------------------------------------------
+  # 1) INFORMAZIONI RISTORANTE  (file singolo -> src/content/restaurant.json)
+  # ---------------------------------------------------------------------------
+  - name: "info"
+    label: "Informazioni Ristorante"
+    files:
+      - name: "restaurant"
+        label: "Dati principali"
+        file: "src/content/restaurant.json"
+        fields:
+          - { name: "name", label: "Nome", widget: "string" }
+          - { name: "tagline", label: "Tagline", widget: "string" }
+          - { name: "intro", label: "Testo introduttivo", widget: "text" }
+          - { name: "phone", label: "Telefono (visualizzato)", widget: "string" }
+          - { name: "phoneRaw", label: "Telefono (solo cifre, per i link)", widget: "string" }
+          - { name: "whatsappNumber", label: "Numero WhatsApp prenotazioni", widget: "string" }
+          - { name: "email", label: "Email", widget: "string" }
+          - { name: "whatsappMessage", label: "Messaggio WhatsApp precompilato", widget: "text" }
+          - name: "address"
+            label: "Indirizzo"
+            widget: "object"
+            fields:
+              - { name: "street", label: "Via e civico", widget: "string" }
+              - { name: "city", label: "CAP e città", widget: "string" }
+              - { name: "mapsUrl", label: "Link Google Maps", widget: "string" }
+          - name: "hours"
+            label: "Orari"
+            widget: "list"
+            fields:
+              - { name: "day", label: "Giorni", widget: "string" }
+              - { name: "lunch", label: "Pranzo (vuoto se chiuso)", widget: "string", required: false }
+              - { name: "dinner", label: "Cena (vuoto se chiuso)", widget: "string", required: false }
+              - { name: "closed", label: "Chiuso", widget: "boolean", default: false, required: false }
+
+  # ---------------------------------------------------------------------------
+  # 2) MENÙ  (file singolo con lista di categorie -> src/content/menu.json)
+  #    Mappa esattamente l'array `menuData` di siteData.js
+  # ---------------------------------------------------------------------------
+  - name: "menu"
+    label: "Menù"
+    files:
+      - name: "menu"
+        label: "Categorie del menù"
+        file: "src/content/menu.json"
+        fields:
+          - name: "categories"
+            label: "Categorie (tab del menù)"
+            label_singular: "Categoria"
+            widget: "list"
+            fields:
+              - { name: "id", label: "ID (univoco, es. 'pranzo')", widget: "string" }
+              - { name: "title", label: "Titolo categoria", widget: "string" }
+              - { name: "description", label: "Descrizione", widget: "text", required: false }
+              - name: "sections"
+                label: "Sezioni (Antipasti, Primi, Secondi…)"
+                label_singular: "Sezione"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Titolo sezione", widget: "string", required: false }
+                  - { name: "note", label: "Nota sotto il titolo", widget: "string", required: false }
+                  - { name: "fixedPrice", label: "Prezzo fisso a persona (€) — solo degustazione", widget: "number", required: false, value_type: "float" }
+                  - name: "dishes"
+                    label: "Piatti"
+                    label_singular: "Piatto"
+                    widget: "list"
+                    fields:
+                      - { name: "name", label: "Nome piatto", widget: "string" }
+                      - { name: "description", label: "Descrizione", widget: "text", required: false }
+                      - { name: "price", label: "Prezzo (€) — vuoto se incluso", widget: "number", required: false, value_type: "float" }
+                      - { name: "tags", label: "Etichette (es. Signature)", widget: "list", required: false }
+
+  # ---------------------------------------------------------------------------
+  # 3) TEAM  (Chef e Sommelier -> src/content/team.json)
+  # ---------------------------------------------------------------------------
+  - name: "team"
+    label: "Chef & Sommelier"
+    files:
+      - name: "team"
+        label: "Persone"
+        file: "src/content/team.json"
+        fields:
+          - name: "people"
+            label: "Membri del team"
+            widget: "list"
+            fields:
+              - { name: "role", label: "Ruolo", widget: "string" }
+              - { name: "name", label: "Nome", widget: "string" }
+              - { name: "text", label: "Biografia", widget: "text" }
+              - { name: "photo", label: "Foto", widget: "image" }
+
+  # ---------------------------------------------------------------------------
+  # 4) VINI  (-> src/content/wines.json)
+  # ---------------------------------------------------------------------------
+  - name: "wines"
+    label: "Carta dei Vini"
+    files:
+      - name: "wines"
+        label: "Selezione vini"
+        file: "src/content/wines.json"
+        fields:
+          - { name: "intro", label: "Testo introduttivo", widget: "text" }
+          - name: "highlights"
+            label: "Aree della carta"
+            widget: "list"
+            fields:
+              - { name: "region", label: "Titolo", widget: "string" }
+              - { name: "note", label: "Descrizione", widget: "text" }
