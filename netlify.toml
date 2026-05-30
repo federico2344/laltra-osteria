@@ -2,6 +2,7 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
 
 # SPA fallback: ogni rotta sconosciuta serve index.html.
 # Esclude /admin/ così il pannello Decap viene servito direttamente.
