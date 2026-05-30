@@ -2,6 +2,9 @@ backend:
   name: git-gateway
   branch: main
 
+# Bozze: le modifiche restano in draft finché non si clicca "Pubblica"
+publish_mode: editorial_workflow
+
 media_folder: "public/images"
 public_folder: "/images"
 
@@ -14,31 +17,38 @@ collections:
   # 1) INFORMAZIONI RISTORANTE
   # ---------------------------------------------------------------------------
   - name: "info"
-    label: "Informazioni Ristorante"
+    label: "🏠 Informazioni Ristorante"
     files:
       - name: "restaurant"
         label: "Dati principali"
         file: "src/content/restaurant.json"
         fields:
-          - { name: "name", label: "Nome ristorante", widget: "string" }
-          - { name: "tagline", label: "Tagline (sotto il nome)", widget: "string" }
-          - { name: "intro", label: "Testo introduttivo (home)", widget: "text" }
-          - { name: "phone", label: "Telefono (es. +39 06 8952 4311)", widget: "string" }
-          - { name: "phoneRaw", label: "Telefono solo cifre (es. 390689524311)", widget: "string", hint: "Solo numeri, niente spazi o simboli. Usato per il link di chiamata diretta." }
-          - { name: "email", label: "Email", widget: "string" }
+          - { name: "name", label: "Nome ristorante", widget: "string", required: true }
+          - { name: "tagline", label: "Tagline (sotto il nome)", widget: "string", required: true }
+          - { name: "intro", label: "Testo introduttivo (home)", widget: "text", required: true }
+          - { name: "phone", label: "Telefono (es. +39 06 8952 4311)", widget: "string", required: true }
+          - name: "phoneRaw"
+            label: "Telefono solo cifre"
+            widget: "string"
+            required: true
+            hint: "⚠️ Solo numeri, niente spazi o simboli. Es: 390689524311"
+            pattern: ['^\d+$', "Inserire solo cifre, senza spazi o simboli"]
+          - { name: "email", label: "Email", widget: "string", required: true }
           - name: "address"
             label: "Indirizzo"
             widget: "object"
             fields:
-              - { name: "street", label: "Via e numero civico", widget: "string" }
-              - { name: "city", label: "CAP e città", widget: "string" }
-              - { name: "mapsUrl", label: "Link Google Maps", widget: "string" }
+              - { name: "street", label: "Via e numero civico", widget: "string", required: true }
+              - { name: "city", label: "CAP e città", widget: "string", required: true }
+              - { name: "mapsUrl", label: "Link Google Maps", widget: "string", required: false }
           - name: "hours"
             label: "Orari di apertura"
             label_singular: "Fascia oraria"
             widget: "list"
+            collapsed: true
+            summary: "{{day}}"
             fields:
-              - { name: "day", label: "Giorni (es. Martedì – Sabato)", widget: "string" }
+              - { name: "day", label: "Giorni (es. Martedì – Sabato)", widget: "string", required: true }
               - { name: "lunch", label: "Orario pranzo (es. 13:00 – 14:45)", widget: "string", required: false }
               - { name: "dinner", label: "Orario cena (es. 20:00 – 22:30)", widget: "string", required: false }
               - { name: "closed", label: "Giorno di chiusura", widget: "boolean", default: false, required: false }
@@ -46,9 +56,9 @@ collections:
             label: "Social"
             widget: "object"
             fields:
-              - { name: "instagram", label: "Link Instagram", widget: "string" }
-              - { name: "facebook", label: "Link Facebook", widget: "string" }
-              - { name: "tripadvisor", label: "Link Tripadvisor", widget: "string" }
+              - { name: "instagram", label: "Link Instagram", widget: "string", required: false }
+              - { name: "facebook", label: "Link Facebook", widget: "string", required: false }
+              - { name: "tripadvisor", label: "Link Tripadvisor", widget: "string", required: false }
           - name: "heroSlides"
             label: "Foto slideshow (home)"
             label_singular: "Foto"
@@ -60,7 +70,7 @@ collections:
   # 2) MENÙ
   # ---------------------------------------------------------------------------
   - name: "menu"
-    label: "Menù"
+    label: "🍽️ Menù"
     files:
       - name: "menu"
         label: "Categorie del menù"
@@ -70,14 +80,21 @@ collections:
             label: "Categorie"
             label_singular: "Categoria"
             widget: "list"
+            collapsed: true
+            summary: "{{title}}"
             fields:
-              - { name: "id", label: "ID categoria", widget: "string", hint: "⚠️ Non modificare: pranzo / serale / degustazione" }
-              - { name: "title", label: "Titolo tab", widget: "string" }
+              - name: "id"
+                label: "ID categoria"
+                widget: "string"
+                hint: "⚠️ Non modificare: pranzo / serale / degustazione"
+              - { name: "title", label: "Titolo tab", widget: "string", required: true }
               - { name: "description", label: "Descrizione", widget: "text", required: false }
               - name: "sections"
                 label: "Sezioni"
                 label_singular: "Sezione"
                 widget: "list"
+                collapsed: true
+                summary: "{{title}}"
                 fields:
                   - { name: "title", label: "Titolo sezione (es. Antipasti)", widget: "string", required: false }
                   - { name: "note", label: "Nota sotto il titolo", widget: "string", required: false }
@@ -86,8 +103,10 @@ collections:
                     label: "Piatti"
                     label_singular: "Piatto"
                     widget: "list"
+                    collapsed: true
+                    summary: "{{name}} — €{{price}}"
                     fields:
-                      - { name: "name", label: "Nome piatto", widget: "string" }
+                      - { name: "name", label: "Nome piatto", widget: "string", required: true }
                       - { name: "description", label: "Descrizione", widget: "text", required: false }
                       - { name: "price", label: "Prezzo € (lascia vuoto se incluso nel degustazione)", widget: "number", required: false, value_type: "float" }
 
@@ -95,7 +114,7 @@ collections:
   # 3) TEAM
   # ---------------------------------------------------------------------------
   - name: "team"
-    label: "Chef & Sommelier"
+    label: "👨‍🍳 Chef & Sommelier"
     files:
       - name: "team"
         label: "Persone"
@@ -105,51 +124,64 @@ collections:
             label: "Membri del team"
             label_singular: "Persona"
             widget: "list"
+            collapsed: true
+            summary: "{{name}} — {{role}}"
             fields:
-              - { name: "role", label: "Ruolo (es. Lo Chef)", widget: "string" }
-              - { name: "name", label: "Nome e cognome", widget: "string" }
-              - { name: "text", label: "Biografia", widget: "text" }
-              - { name: "photo", label: "Foto", widget: "image" }
+              - { name: "role", label: "Ruolo (es. Lo Chef)", widget: "string", required: true }
+              - { name: "name", label: "Nome e cognome", widget: "string", required: true }
+              - { name: "text", label: "Biografia", widget: "text", required: true }
+              - { name: "photo", label: "Foto", widget: "image", required: false }
 
   # ---------------------------------------------------------------------------
   # 4) CARTA DEI VINI
   # ---------------------------------------------------------------------------
   - name: "wines"
-    label: "Carta dei Vini"
+    label: "🍷 Carta dei Vini"
     files:
       - name: "wines"
         label: "Vini"
         file: "src/content/wines.json"
         fields:
-          - { name: "intro", label: "Testo introduttivo", widget: "text" }
+          - { name: "intro", label: "Testo introduttivo", widget: "text", required: true }
           - name: "sections"
             label: "Categorie"
             label_singular: "Categoria"
             widget: "list"
+            collapsed: true
+            summary: "{{title}}"
             fields:
-              - { name: "id", label: "ID categoria", widget: "string", hint: "⚠️ Non modificare" }
-              - { name: "title", label: "Titolo categoria (es. Bianchi)", widget: "string" }
+              - name: "id"
+                label: "ID categoria"
+                widget: "string"
+                hint: "⚠️ Non modificare"
+              - { name: "title", label: "Titolo categoria (es. Bianchi)", widget: "string", required: true }
               - name: "items"
                 label: "Vini"
                 label_singular: "Vino"
                 widget: "list"
                 required: false
+                collapsed: true
+                summary: "{{name}} — €{{price}}"
                 fields:
-                  - { name: "name", label: "Nome vino", widget: "string" }
+                  - { name: "name", label: "Nome vino", widget: "string", required: true }
                   - { name: "description", label: "Descrizione (produttore, regione…)", widget: "string", required: false }
-                  - { name: "price", label: "Prezzo €", widget: "number", value_type: "float" }
+                  - { name: "price", label: "Prezzo €", widget: "number", required: true, value_type: "float" }
               - name: "subsections"
                 label: "Sottocategorie (solo Vini Esteri)"
                 label_singular: "Sottocategoria"
                 widget: "list"
                 required: false
+                collapsed: true
+                summary: "{{title}}"
                 fields:
-                  - { name: "title", label: "Titolo (es. Francia — Bianchi)", widget: "string" }
+                  - { name: "title", label: "Titolo (es. Francia — Bianchi)", widget: "string", required: true }
                   - name: "items"
                     label: "Vini"
                     label_singular: "Vino"
                     widget: "list"
+                    collapsed: true
+                    summary: "{{name}} — €{{price}}"
                     fields:
-                      - { name: "name", label: "Nome vino", widget: "string" }
+                      - { name: "name", label: "Nome vino", widget: "string", required: true }
                       - { name: "description", label: "Descrizione", widget: "string", required: false }
-                      - { name: "price", label: "Prezzo €", widget: "number", value_type: "float" }
+                      - { name: "price", label: "Prezzo €", widget: "number", required: true, value_type: "float" }

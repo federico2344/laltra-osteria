@@ -6,44 +6,219 @@
     <meta name="robots" content="noindex" />
     <title>L'Altra Osteria · Pannello di gestione</title>
     <style>
-      /* Colori brand al posto del viola Decap */
-      :root {
-        --primary: #8B1A1A;
-        --primary-dark: #6B0F0F;
-      }
-      /* Header */
-      header[class*="AppHeader"],
-      [class*="AppHeader"] {
-        background: #2B2622 !important;
-      }
-      /* Pulsanti primari */
-      [class*="Button"][class*="primary"],
-      button[class*="success"] {
+      [class*="AppHeader"] { background: #2B2622 !important; }
+      [class*="Button"][class*="primary"], button[class*="success"] {
         background-color: #8B1A1A !important;
         border-color: #8B1A1A !important;
       }
-      [class*="Button"][class*="primary"]:hover {
-        background-color: #6B0F0F !important;
-      }
-      /* Link e accenti attivi */
-      [class*="NavLink"][class*="isActive"],
-      [class*="active"] > a {
-        color: #8B1A1A !important;
-        border-color: #8B1A1A !important;
-      }
-      /* Sidebar navigazione */
-      [class*="Sidebar"],
-      [class*="CollectionList"] {
-        background: #FAF6F0 !important;
-      }
-      /* Titolo pannello */
-      [class*="AppHeaderTitle"] {
-        font-family: Georgia, serif !important;
-        letter-spacing: 0.05em;
-      }
+      [class*="Button"][class*="primary"]:hover { background-color: #6B0F0F !important; }
     </style>
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // ── Stile anteprime ──────────────────────────────────────────────────
+      CMS.registerPreviewStyle(`
+        * { box-sizing: border-box; }
+        body {
+          font-family: Georgia, 'Times New Roman', serif;
+          background: #FAF6F0;
+          color: #2B2622;
+          padding: 2rem;
+          margin: 0;
+        }
+        .eyebrow {
+          font-size: 0.7rem;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #8B1A1A;
+          margin-bottom: 0.5rem;
+        }
+        h1 { font-size: 2rem; margin: 0 0 0.5rem; color: #2B2622; }
+        h2 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8B1A1A; border-bottom: 1px solid #e0d5c5; padding-bottom: 0.4rem; margin: 1.5rem 0 0.75rem; }
+        h3 { font-size: 1rem; margin: 0 0 0.2rem; color: #2B2622; }
+        p { margin: 0.25rem 0; color: #5a5050; font-size: 0.9rem; line-height: 1.5; }
+        .card { background: white; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+        .row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.6rem 0; border-bottom: 1px solid #f0ebe3; }
+        .row:last-child { border-bottom: none; }
+        .price { color: #B8872A; font-weight: 700; font-size: 1rem; white-space: nowrap; margin-left: 1rem; }
+        .fixed-price { color: #8B1A1A; font-size: 0.9rem; font-weight: 600; }
+        .note { font-style: italic; color: #888; font-size: 0.82rem; margin-bottom: 0.5rem; }
+        .photo { width: 100%; max-width: 280px; border-radius: 12px; object-fit: cover; aspect-ratio: 3/4; }
+        .team-card { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .team-info { flex: 1; }
+        .info-row { display: flex; gap: 0.5rem; margin-bottom: 0.4rem; font-size: 0.9rem; }
+        .label { font-weight: 600; min-width: 90px; color: #555; }
+        .tag { background: #FAF6F0; border: 1px solid #B8872A; color: #B8872A; padding: 2px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; display: inline-block; margin-bottom: 0.75rem; }
+        .empty { color: #aaa; font-style: italic; text-align: center; padding: 2rem; }
+      `, { raw: true });
+
+      // ── Helper ───────────────────────────────────────────────────────────
+      var h = window.h;
+      var fmt = function(n) {
+        if (n == null || n === '') return '';
+        return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(n);
+      };
+
+      // ── Anteprima MENÙ ───────────────────────────────────────────────────
+      var MenuPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var categories = entry.getIn(['data', 'categories']);
+          if (!categories || !categories.size) return h('p', { className: 'empty' }, 'Nessun dato da mostrare.');
+
+          return h('div', {},
+            categories.map(function(cat, ci) {
+              var sections = cat.get('sections');
+              return h('div', { key: ci },
+                h('div', { className: 'eyebrow' }, cat.get('title') || '—'),
+                h('p', {}, cat.get('description') || ''),
+                sections && sections.map(function(sec, si) {
+                  var dishes = sec.get('dishes');
+                  var fp = sec.get('fixedPrice');
+                  return h('div', { key: si, className: 'card' },
+                    sec.get('title') && h('h2', {}, sec.get('title')),
+                    fp && h('p', { className: 'fixed-price' }, '€ ' + fp + ' a persona'),
+                    sec.get('note') && h('p', { className: 'note' }, sec.get('note')),
+                    dishes && dishes.map(function(dish, di) {
+                      return h('div', { key: di, className: 'row' },
+                        h('div', {},
+                          h('h3', {}, dish.get('name') || '—'),
+                          dish.get('description') && h('p', {}, dish.get('description'))
+                        ),
+                        dish.get('price') != null && h('span', { className: 'price' }, fmt(dish.get('price')))
+                      );
+                    })
+                  );
+                })
+              );
+            })
+          );
+        }
+      });
+      CMS.registerPreviewTemplate('menu', MenuPreview);
+
+      // ── Anteprima VINI ───────────────────────────────────────────────────
+      var WinesPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var sections = entry.getIn(['data', 'sections']);
+          if (!sections || !sections.size) return h('p', { className: 'empty' }, 'Nessun dato da mostrare.');
+
+          return h('div', {},
+            entry.getIn(['data', 'intro']) && h('p', { style: { fontStyle: 'italic', marginBottom: '1.5rem' } }, entry.getIn(['data', 'intro'])),
+            sections.map(function(sec, si) {
+              var items = sec.get('items');
+              var subs = sec.get('subsections');
+              return h('div', { key: si },
+                h('h2', {}, sec.get('title') || '—'),
+                items && items.size > 0 && h('div', { className: 'card' },
+                  items.map(function(wine, wi) {
+                    return h('div', { key: wi, className: 'row' },
+                      h('div', {},
+                        h('h3', {}, wine.get('name') || '—'),
+                        wine.get('description') && h('p', {}, wine.get('description'))
+                      ),
+                      h('span', { className: 'price' }, fmt(wine.get('price')))
+                    );
+                  })
+                ),
+                subs && subs.map(function(sub, subi) {
+                  return h('div', { key: subi },
+                    h('h2', { style: { fontSize: '0.9rem' } }, sub.get('title') || '—'),
+                    h('div', { className: 'card' },
+                      sub.get('items') && sub.get('items').map(function(wine, wi) {
+                        return h('div', { key: wi, className: 'row' },
+                          h('div', {},
+                            h('h3', {}, wine.get('name') || '—'),
+                            wine.get('description') && h('p', {}, wine.get('description'))
+                          ),
+                          h('span', { className: 'price' }, fmt(wine.get('price')))
+                        );
+                      })
+                    )
+                  );
+                })
+              );
+            })
+          );
+        }
+      });
+      CMS.registerPreviewTemplate('wines', WinesPreview);
+
+      // ── Anteprima TEAM ───────────────────────────────────────────────────
+      var TeamPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var people = entry.getIn(['data', 'people']);
+          if (!people || !people.size) return h('p', { className: 'empty' }, 'Nessun dato da mostrare.');
+
+          return h('div', {},
+            people.map(function(person, i) {
+              return h('div', { key: i, className: 'card' },
+                h('div', { className: 'team-card' },
+                  person.get('photo') && h('img', { src: person.get('photo'), className: 'photo', alt: '' }),
+                  h('div', { className: 'team-info' },
+                    h('span', { className: 'tag' }, person.get('role') || ''),
+                    h('h1', { style: { fontSize: '1.4rem' } }, person.get('name') || '—'),
+                    h('p', {}, person.get('text') || '')
+                  )
+                )
+              );
+            })
+          );
+        }
+      });
+      CMS.registerPreviewTemplate('team', TeamPreview);
+
+      // ── Anteprima RISTORANTE ─────────────────────────────────────────────
+      var RestaurantPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var data = entry.get('data');
+          var addr = data.get('address');
+          var hours = data.get('hours');
+          var social = data.get('social');
+
+          return h('div', {},
+            h('div', { className: 'eyebrow' }, addr ? addr.get('street') + ' · Roma' : ''),
+            h('h1', {}, data.get('name') || '—'),
+            h('p', { style: { fontStyle: 'italic', marginBottom: '1.5rem' } }, data.get('tagline') || ''),
+            h('p', {}, data.get('intro') || ''),
+
+            h('h2', {}, 'Contatti'),
+            h('div', { className: 'card' },
+              h('div', { className: 'info-row' }, h('span', { className: 'label' }, 'Telefono:'), h('span', {}, data.get('phone') || '—')),
+              h('div', { className: 'info-row' }, h('span', { className: 'label' }, 'Email:'), h('span', {}, data.get('email') || '—'))
+            ),
+
+            hours && hours.size > 0 && h('div', {},
+              h('h2', {}, 'Orari'),
+              h('div', { className: 'card' },
+                hours.map(function(row, i) {
+                  return h('div', { key: i, className: 'info-row' },
+                    h('span', { className: 'label' }, row.get('day') + ':'),
+                    row.get('closed')
+                      ? h('span', { style: { color: '#8B1A1A' } }, 'Chiuso')
+                      : h('span', {}, (row.get('lunch') || '') + (row.get('lunch') && row.get('dinner') ? ' · ' : '') + (row.get('dinner') || ''))
+                  );
+                })
+              )
+            ),
+
+            social && h('div', {},
+              h('h2', {}, 'Social'),
+              h('div', { className: 'card' },
+                h('div', { className: 'info-row' }, h('span', { className: 'label' }, 'Instagram:'), h('span', {}, social.get('instagram') || '—')),
+                h('div', { className: 'info-row' }, h('span', { className: 'label' }, 'Facebook:'), h('span', {}, social.get('facebook') || '—')),
+                h('div', { className: 'info-row' }, h('span', { className: 'label' }, 'Tripadvisor:'), h('span', {}, social.get('tripadvisor') || '—'))
+              )
+            )
+          );
+        }
+      });
+      CMS.registerPreviewTemplate('restaurant', RestaurantPreview);
+    </script>
   </body>
 </html>
