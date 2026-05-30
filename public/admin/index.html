@@ -152,13 +152,16 @@
         render: function() {
           var entry = this.props.entry;
           var people = entry.getIn(['data', 'people']);
+          var getAsset = this.props.getAsset;
           if (!people || !people.size) return h('p', { className: 'empty' }, 'Nessun dato da mostrare.');
 
           return h('div', {},
             people.map(function(person, i) {
+              var photo = person.get('photo');
+              var photoUrl = photo && getAsset ? getAsset(photo) : photo;
               return h('div', { key: i, className: 'card' },
                 h('div', { className: 'team-card' },
-                  person.get('photo') && h('img', { src: person.get('photo'), className: 'photo', alt: '' }),
+                  photo && h('img', { src: photoUrl && photoUrl.toString ? photoUrl.toString() : photoUrl, className: 'photo', alt: '' }),
                   h('div', { className: 'team-info' },
                     h('span', { className: 'tag' }, person.get('role') || ''),
                     h('h1', { style: { fontSize: '1.4rem' } }, person.get('name') || '—'),
