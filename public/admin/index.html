@@ -110,7 +110,22 @@
             backdrop-filter: saturate(180%) blur(24px) !important;
             border-bottom: 1px solid var(--line) !important;
             box-shadow: none !important;
-            height: 52px !important;
+            min-height: 52px !important;
+          }
+          /* Centro verticalmente i contenuti del header */
+          html body [class*="AppHeaderContent"] {
+            display: flex !important;
+            align-items: center !important;
+            min-height: 52px !important;
+          }
+          html body [class*="AppHeaderNavList"] {
+            display: flex !important;
+            align-items: center !important;
+            margin: 0 !important;
+          }
+          html body [class*="AppHeaderActions"] {
+            display: flex !important;
+            align-items: center !important;
           }
           /* Link Contenuti — pulito, senza chrome da bottone */
           html body header [class*="AppHeaderNavLink"],
@@ -123,6 +138,10 @@
             border-radius: 6px !important;
             padding: 6px 10px !important;
             box-shadow: none !important;
+            line-height: 1 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
             transition: background 0.15s var(--ease) !important;
           }
           html body header [class*="AppHeaderNavLink"]:hover,
@@ -135,14 +154,23 @@
             background: rgba(55, 53, 47, 0.08) !important;
             color: var(--ink) !important;
           }
-          /* Avatar */
-          html body [class*="AvatarDropdownButton"] {
+          /* Avatar — niente background, niente quadrato */
+          html body [class*="StyledWrapper"][class*="efqlgsg"],
+          html body [class*="AvatarDropdownButton"],
+          html body [class*="AvatarDropdownButton"] [class*="IconWrapper"],
+          html body [class*="AvatarPlaceholderIcon"],
+          html body [class*="avatarImage"] {
             background: transparent !important;
+            background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            padding: 4px !important;
+            border-radius: 999px !important;
+            padding: 0 !important;
           }
           html body [class*="AvatarDropdownButton"] svg path {
+            fill: var(--ink-soft) !important;
+          }
+          html body [class*="AvatarDropdownButton"] svg [fill] {
             fill: var(--ink-soft) !important;
           }
 
@@ -240,8 +268,6 @@
             border: 1px solid var(--line) !important;
             box-shadow: var(--shadow-card) !important;
             padding: 12px !important;
-            position: sticky !important;
-            top: 76px !important;
           }
           /* "RACCOLTE" header — modern caps */
           html body [class*="CollectionTop"] h2,
@@ -471,16 +497,6 @@
           }
 
           /* COMPARSA dolce del contenuto principale */
-          html body [class*="EditorContainer"],
-          html body [class*="CollectionMainContainer"],
-          html body [class*="CollectionContainer"] > *:not([class*="Sidebar"]):not([class*="CollectionTop"]) {
-            animation: adminFadeIn 0.22s var(--ease);
-          }
-          @keyframes adminFadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to   { opacity: 1; transform: translateY(0); }
-          }
-
           /* HIDE: Media tab, ricerca globale, controlli inutili per file-collections */
           html body a[href="#/media"],
           html body [class*="AppHeaderNavList"] > li:nth-child(2),
@@ -512,30 +528,15 @@
             box-shadow: none !important;
           }
 
-          /* MOTION più fluida e meno meccanica */
-          html body * {
-            transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+          /* Comparsa morbida quando cambi sezione contenuto a destra
+             (NON tocchiamo la sidebar per evitare di rompere i click) */
+          html body [class*="EntryListing"],
+          html body [class*="CollectionTopContainer"] {
+            animation: adminFadeIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
           }
-
-          /* Comparsa più morbida quando cambi sezione */
-          html body [class*="EditorContainer"] > *,
-          html body [class*="CollectionMainContainer"] > * {
-            animation: adminSlideIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
-          }
-          @keyframes adminSlideIn {
-            0%   { opacity: 0; transform: translateY(8px) scale(0.997); filter: blur(2px); }
-            60%  { filter: blur(0); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-          }
-
-          /* Stagger leggero per le voci della sidebar al primo load */
-          html body [class*="CollectionListItem"]:nth-child(1) { animation: itemFade 0.35s 0.02s cubic-bezier(0.22, 1, 0.36, 1) both; }
-          html body [class*="CollectionListItem"]:nth-child(2) { animation: itemFade 0.35s 0.06s cubic-bezier(0.22, 1, 0.36, 1) both; }
-          html body [class*="CollectionListItem"]:nth-child(3) { animation: itemFade 0.35s 0.10s cubic-bezier(0.22, 1, 0.36, 1) both; }
-          html body [class*="CollectionListItem"]:nth-child(4) { animation: itemFade 0.35s 0.14s cubic-bezier(0.22, 1, 0.36, 1) both; }
-          @keyframes itemFade {
-            from { opacity: 0; transform: translateX(-4px); }
-            to   { opacity: 1; transform: translateX(0); }
+          @keyframes adminFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
           }
         `;
 
