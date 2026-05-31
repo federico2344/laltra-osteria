@@ -327,9 +327,10 @@
             box-shadow: 0 0 0 3px var(--brand-soft) !important;
           }
 
-          /* BUTTONS — default secondario */
-          html body button,
-          html body [class*="Button"] {
+          /* BUTTONS — solo quelli "veri" con testo, non tutte le icon-button del CMS */
+          html body [class*="EditorToolbar"] button,
+          html body [class*="ConfirmationDialog"] button,
+          html body [class*="EntryEditor"] [class*="Toolbar"] button {
             border-radius: 6px !important;
             font-weight: 500 !important;
             font-size: 14px !important;
@@ -340,14 +341,17 @@
             box-shadow: none !important;
             transition: background 0.15s var(--ease), border-color 0.15s var(--ease) !important;
           }
-          html body button:hover,
-          html body [class*="Button"]:hover {
+          html body [class*="EditorToolbar"] button:hover,
+          html body [class*="ConfirmationDialog"] button:hover {
             background: var(--surface-2) !important;
-            transform: none !important;
           }
-          html body button:active {
-            background: var(--surface-2) !important;
-            transform: none !important;
+          /* Le icon-button piccole dentro alle topbar lasciamole stare */
+          html body [class*="ListItemTopBar"] button,
+          html body [class*="TopBar"] button:not([class*="primary"]):not([class*="success"]) {
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
           }
 
           /* BOTTONI PRIMARI rossi */
@@ -478,19 +482,22 @@
 
         ensureLast();
 
-        // ── Nasconde "Ordina per" cercando il pulsante per testo, in modo sicuro ──
-        function hideSortButton() {
+        // ── Nasconde pulsanti specifici per testo (Ordina per, Controlla l'anteprima) ──
+        var TEXT_HIDE = ['Ordina per', 'Sort by', "Controlla l'anteprima", 'Check preview'];
+        function hideByButtonText() {
           var btns = document.querySelectorAll('button');
           for (var i = 0; i < btns.length; i++) {
             var t = (btns[i].textContent || '').trim();
-            if (t === 'Ordina per' || t === 'Sort by' || t.indexOf('Ordina per') === 0) {
-              btns[i].style.display = 'none';
+            for (var j = 0; j < TEXT_HIDE.length; j++) {
+              if (t === TEXT_HIDE[j] || t.indexOf(TEXT_HIDE[j]) === 0) {
+                btns[i].style.display = 'none';
+              }
             }
           }
         }
-        setTimeout(hideSortButton, 800);
-        setTimeout(hideSortButton, 2000);
-        window.addEventListener('hashchange', function() { setTimeout(hideSortButton, 500); });
+        setTimeout(hideByButtonText, 800);
+        setTimeout(hideByButtonText, 2000);
+        window.addEventListener('hashchange', function() { setTimeout(hideByButtonText, 500); });
 
         // Riposiziona sempre i nostri stili come ULTIMI in head
         var observer = new MutationObserver(function(mutations) {
