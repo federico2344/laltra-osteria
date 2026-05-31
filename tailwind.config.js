@@ -29,6 +29,7 @@ export default {
         cream:   'rgb(var(--c-cream) / <alpha-value>)',
         charcoal:'rgb(var(--c-charcoal) / <alpha-value>)',
         gold:    'rgb(var(--c-gold) / <alpha-value>)',
+        price:   'rgb(var(--c-price) / <alpha-value>)',
       },
 
       fontFamily: {

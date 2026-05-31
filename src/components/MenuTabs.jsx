@@ -22,7 +22,7 @@ function Dish({ dish }) {
         )}
       </div>
       {dish.price != null && (
-        <span className="shrink-0 font-display text-lg text-terracotta">{formatPrice(dish.price)}</span>
+        <span className="shrink-0 font-display text-lg text-price">{formatPrice(dish.price)}</span>
       )}
     </li>
   )

@@ -36,6 +36,7 @@ export default function ThemeProvider() {
 
     apply('--c-brand', t.colorBrand)
     apply('--c-gold', t.colorAccent)
+    apply('--c-price', t.colorPrice)
     apply('--c-cream', t.colorBackground)
     apply('--c-charcoal', t.colorText)
 

@@ -11,7 +11,7 @@ function WineRow({ wine }) {
           <p className="mt-0.5 text-sm text-charcoal/60 leading-snug">{wine.description}</p>
         )}
       </div>
-      <span className="shrink-0 font-display text-base text-gold">{formatPrice(wine.price)}</span>
+      <span className="shrink-0 font-display text-base text-price">{formatPrice(wine.price)}</span>
     </li>
   )
 }
