@@ -263,41 +263,27 @@
             margin: 0 !important;
           }
 
-          /* SIDEBAR ITEMS — pill, align center, padding ariosa */
+          /* SIDEBAR ITEMS — solo cosmetica, niente layout o transform */
           html body [class*="NavLink"],
           html body [class*="CollectionListItem"],
           html body a[class*="SidebarNavLink"] {
-            display: flex !important;
-            align-items: center !important;
-            gap: 10px !important;
             border-radius: 8px !important;
-            padding: 10px 12px !important;
-            margin: 2px 0 !important;
             font-size: 14px !important;
             font-weight: 500 !important;
             color: var(--ink) !important;
             background: transparent !important;
             border: none !important;
-            border-left: 3px solid transparent !important;
-            transition: background-color 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease) !important;
-            position: relative !important;
           }
           html body [class*="NavLink"]:hover,
           html body [class*="CollectionListItem"]:hover {
             background-color: var(--surface-2) !important;
             color: var(--ink) !important;
-            transform: none !important;
           }
-          html body [class*="NavLink"][class*="active"],
-          html body [class*="CollectionListItem"][class*="active"],
           html body [class*="NavLink"][aria-current="page"],
-          html body a[class*="SidebarNavLink"][aria-current="page"],
-          html body [class*="CollectionListItem"][class*="Active"] {
+          html body a[class*="SidebarNavLink"][aria-current="page"] {
             background-color: var(--brand-soft) !important;
             color: var(--brand) !important;
             font-weight: 600 !important;
-            border-left-color: var(--brand) !important;
-            padding-left: 9px !important;
           }
 
           /* SEARCH input */
@@ -536,6 +522,31 @@
         }
 
         ensureLast();
+
+        // ── Fallback: trova e nasconde elementi per testo (es. "Ordina per") ──
+        function hideByText() {
+          var targets = ['Ordina per', 'Sort by'];
+          var all = document.querySelectorAll('button, div, span, a');
+          for (var i = 0; i < all.length; i++) {
+            var el = all[i];
+            var txt = (el.textContent || '').trim();
+            for (var j = 0; j < targets.length; j++) {
+              if (txt === targets[j] || txt.indexOf(targets[j]) === 0 && txt.length < 30) {
+                // sale finché trova un wrapper utile (button o div con pulsante)
+                var node = el;
+                while (node && node.tagName !== 'BUTTON' && node !== document.body) {
+                  node = node.parentElement;
+                }
+                if (node && node.tagName === 'BUTTON') node.style.display = 'none';
+                else if (el.tagName === 'DIV' || el.tagName === 'SPAN') el.style.display = 'none';
+              }
+            }
+          }
+        }
+        // Ritardo per dare a Decap il tempo di renderizzare
+        setTimeout(hideByText, 600);
+        setTimeout(hideByText, 1500);
+        window.addEventListener('hashchange', function() { setTimeout(hideByText, 400); });
 
         // Riposiziona sempre i nostri stili come ULTIMI in head
         var observer = new MutationObserver(function(mutations) {
