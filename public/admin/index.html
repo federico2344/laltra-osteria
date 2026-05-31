@@ -493,21 +493,35 @@
 
         ensureLast();
 
-        // ── Auto-skip dello step intermedio: clic su una raccolta → direttamente al form ──
+        // ── Auto-skip: SOLO dopo click utente sulla sidebar, mai sul load iniziale ──
         var SKIP_MAP = {
           'info': 'restaurant',
           'menu': 'menu',
           'team': 'team',
           'wines': 'wines',
         };
+        var userClickedSidebar = false;
+
+        // Intercetta i click sulla sidebar: ad ogni click utente alziamo il flag
+        document.addEventListener('click', function(ev) {
+          var t = ev.target;
+          while (t && t !== document.body) {
+            if (t.tagName === 'A' && t.getAttribute('href') && t.getAttribute('href').indexOf('#/collections/') === 0) {
+              userClickedSidebar = true;
+              return;
+            }
+            t = t.parentElement;
+          }
+        }, true);
+
         function autoSkip() {
+          if (!userClickedSidebar) return;
           try {
             var h = window.location.hash || '';
-            // Esempio match: "#/collections/menu" (con o senza trailing slash)
             var m = h.match(/^#\/collections\/([^/?#]+)\/?$/);
             if (m && SKIP_MAP[m[1]]) {
               var target = '#/collections/' + m[1] + '/entries/' + SKIP_MAP[m[1]];
-              // setTimeout dà a Decap il tempo di registrare la route prima del redirect
+              userClickedSidebar = false; // consumiamo il flag
               setTimeout(function() {
                 if ((window.location.hash || '') === h) {
                   window.location.replace(target);
@@ -516,7 +530,6 @@
             }
           } catch (e) { console.warn('[auto-skip]', e); }
         }
-        autoSkip();
         window.addEventListener('hashchange', autoSkip);
 
         // ── Nasconde pulsanti specifici per testo (Ordina per, Controlla l'anteprima) ──
