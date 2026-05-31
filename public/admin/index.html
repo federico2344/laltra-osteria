@@ -516,6 +516,122 @@
             border-radius: 12px !important;
           }
 
+          /* ════════════════════════════════════════════════════════════════
+             RESPONSIVE — tablet & mobile
+             ════════════════════════════════════════════════════════════════ */
+
+          /* Tablet (≤ 1024px): nascondiamo l'anteprima destra, form a tutta larghezza */
+          @media (max-width: 1024px) {
+            html body [class*="PreviewPaneContainer"],
+            html body [class*="PreviewPane"] {
+              display: none !important;
+            }
+            html body [class*="ControlPaneContainer"] {
+              width: 100% !important;
+              max-width: 100% !important;
+              flex: 1 1 100% !important;
+            }
+            html body [class*="EditorContainer"] {
+              flex-direction: column !important;
+            }
+          }
+
+          /* Mobile (≤ 768px) */
+          @media (max-width: 768px) {
+            /* Card "Raccolte" centrata: forziamo larghezza piena */
+            html body.admin-home [class*="CollectionContainer"] {
+              padding: 24px 16px !important;
+              min-height: auto !important;
+              justify-content: center !important;
+            }
+            html body.admin-home [class*="CollectionTop"]:not([class*="Container"]),
+            html body.admin-home [class*="SidebarContainer"] {
+              width: 100% !important;
+              max-width: 100% !important;
+              padding: 20px 16px !important;
+              border-radius: 14px !important;
+              margin: 0 auto !important;
+            }
+            html body.admin-home [class*="CollectionTop"] h2,
+            html body.admin-home [class*="Sidebar"] h2 {
+              padding: 0 0 14px !important;
+              font-size: 11px !important;
+            }
+            html body.admin-home [class*="NavLink"],
+            html body.admin-home [class*="CollectionListItem"] {
+              font-size: 16px !important;
+              padding: 14px 14px !important;
+            }
+
+            /* Header più compatto */
+            html body header,
+            html body [class*="AppHeader"]:not([class*="Content"]):not([class*="Button"]):not([class*="Nav"]):not([class*="Actions"]) {
+              min-height: 48px !important;
+            }
+            html body [class*="AppHeaderContent"] {
+              padding: 0 12px !important;
+              min-height: 48px !important;
+            }
+
+            /* Editor: sidebar e form impilati verticalmente */
+            html body.admin-editor [class*="CollectionContainer"] {
+              flex-direction: column !important;
+              padding: 12px !important;
+              gap: 12px !important;
+            }
+            html body.admin-editor [class*="SidebarContainer"] {
+              width: 100% !important;
+              max-width: 100% !important;
+              padding: 8px !important;
+            }
+            html body.admin-editor [class*="SidebarContainer"] ul {
+              display: flex !important;
+              flex-wrap: wrap !important;
+              gap: 4px !important;
+            }
+            html body.admin-editor [class*="SidebarContainer"] li {
+              flex: 1 1 auto !important;
+            }
+            html body.admin-editor [class*="NavLink"],
+            html body.admin-editor [class*="CollectionListItem"] {
+              font-size: 13px !important;
+              padding: 8px 10px !important;
+              white-space: nowrap !important;
+            }
+
+            /* Card entry e form più strette */
+            html body [class*="EntryListing"] [class*="ListItem"] {
+              padding: 16px 18px !important;
+              font-size: 14px !important;
+            }
+            html body [class*="CollectionTopContainer"] {
+              padding: 16px 18px !important;
+            }
+            html body [class*="CollectionTopContainer"] h1,
+            html body [class*="CollectionTopContainer"] h2 {
+              font-size: 20px !important;
+            }
+
+            /* Toolbar editing: bottoni più piccoli e wrap */
+            html body [class*="EditorToolbar"] {
+              flex-wrap: wrap !important;
+              padding: 8px !important;
+              gap: 6px !important;
+            }
+            html body [class*="EditorToolbar"] button {
+              padding: 6px 12px !important;
+              font-size: 13px !important;
+            }
+
+            /* Floating "Guida" più piccolo */
+            #guida-fab {
+              bottom: 14px !important;
+              right: 14px !important;
+              padding: 9px 14px !important;
+              font-size: 12.5px !important;
+            }
+          }
+
           /* TOOLBAR salva/pubblica — discreta */
           html body [class*="EditorToolbar"] {
             background: rgba(255, 255, 255, 0.85) !important;
