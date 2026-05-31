@@ -25,7 +25,7 @@ function HeroSlideshow({ slides, current }) {
 }
 
 export default function Hero() {
-  const booking = telLink(restaurant.phoneRaw)
+  const booking = telLink(restaurant.phone)
   const slides = restaurant.heroSlides ?? ['/images/hero/slide-1.jpg']
   const [current, setCurrent] = useState(0)
 

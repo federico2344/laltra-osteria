@@ -36,7 +36,7 @@ export default function Navbar() {
     return () => mq.removeEventListener('change', close)
   }, [])
 
-  const booking = telLink(restaurant.phoneRaw)
+  const booking = telLink(restaurant.phone)
   const linkColor = solid ? 'text-charcoal/80' : 'text-cream/90'
 
   return (

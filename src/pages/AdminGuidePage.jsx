@@ -96,10 +96,10 @@ export default function AdminGuidePage() {
           </p>
           <ul>
             <li><strong>Nome, tagline, testo introduttivo</strong>: quello che si vede nella home.</li>
-            <li><strong>Telefono</strong>: la versione visualizzata (con spazi) e quella "solo cifre" (usata per i link "chiama"). La versione solo cifre accetta solo numeri.</li>
+            <li><strong>Telefono</strong>: inseriscilo come preferisci (es. <code>+39 06 8952 4311</code>). Il sito ne ricava automaticamente il numero "pulito" per i link "chiama".</li>
             <li><strong>Email</strong>: indirizzo di contatto. Deve essere un'email valida.</li>
             <li><strong>Indirizzo</strong>: via, città e link Google Maps.</li>
-            <li><strong>Orari</strong>: ogni riga è una fascia. Spunta "Giorno di chiusura" se non c'è apertura.</li>
+            <li><strong>Orari</strong>: ogni riga è una fascia (es. "Martedì – Sabato"). Compila orario pranzo e/o cena, oppure spunta "Giorno di chiusura" se quel giorno non c'è apertura.</li>
             <li><strong>Social</strong>: link a Instagram, Facebook, Tripadvisor. Devono iniziare con <code>https://</code>.</li>
             <li><strong>Foto slideshow</strong>: le immagini che scorrono nella home (vedi sezione 6).</li>
             <li><strong>Dati aziendali</strong>: ragione sociale, P.IVA, codice fiscale, ecc. Appaiono in piccolo nel footer (obbligo di legge).</li>

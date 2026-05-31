@@ -4,7 +4,7 @@ import PageHeader from '../components/PageHeader.jsx'
 import Reveal from '../components/Reveal.jsx'
 
 export default function ContactPage() {
-  const booking = telLink(restaurant.phoneRaw)
+  const booking = telLink(restaurant.phone)
 
   const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(
     `${restaurant.address.street} ${restaurant.address.city}`,
@@ -42,7 +42,7 @@ export default function ContactPage() {
             <div>
               <h2 className="text-sm font-semibold uppercase tracking-widest text-terracotta">Contatti</h2>
               <p className="mt-2 text-lg text-charcoal">
-                <a href={`tel:+${restaurant.phoneRaw}`} className="hover:text-terracotta">
+                <a href={telLink(restaurant.phone)} className="hover:text-terracotta">
                   {restaurant.phone}
                 </a>
                 <br />

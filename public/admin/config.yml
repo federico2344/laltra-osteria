@@ -24,12 +24,6 @@ collections:
           - { name: "tagline", label: "Tagline (sotto il nome)", widget: "string", required: true }
           - { name: "intro", label: "Testo introduttivo (home)", widget: "text", required: true }
           - { name: "phone", label: "Telefono (es. +39 06 8952 4311)", widget: "string", required: true }
-          - name: "phoneRaw"
-            label: "Telefono solo cifre"
-            widget: "string"
-            required: true
-            hint: "⚠️ Solo numeri, niente spazi o simboli. Es: 390689524311"
-            pattern: ['^\d+$', "Inserire solo cifre, senza spazi o simboli"]
           - name: "email"
             label: "Email"
             widget: "string"
@@ -50,7 +44,7 @@ collections:
             label: "Orari di apertura"
             label_singular: "Fascia oraria"
             widget: "list"
-            collapsed: true
+            collapsed: false
             summary: "{{day}}"
             min: 1
             fields:

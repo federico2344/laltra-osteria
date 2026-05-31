@@ -11,10 +11,11 @@ export function formatPrice(value) {
 
 /**
  * Costruisce il link tel: per aprire il dialer con il numero precompilato.
- * @param {string} raw - numero in formato internazionale solo cifre (es. "390689524311")
+ * Accetta qualunque formato ("+39 06 8952 4311") e ne estrae le cifre.
  */
-export function telLink(raw) {
-  return `tel:+${raw}`
+export function telLink(phone) {
+  const digits = String(phone || '').replace(/\D/g, '')
+  return `tel:+${digits}`
 }
 
 /**

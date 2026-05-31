@@ -147,7 +147,7 @@ export default function HomePage() {
               {restaurant.address.street}, {restaurant.address.city} · Mar–Sab, pranzo e cena
             </p>
           </div>
-          <a href={telLink(restaurant.phoneRaw)} className="btn-secondary border-cream text-cream hover:bg-cream hover:text-terracotta">
+          <a href={telLink(restaurant.phone)} className="btn-secondary border-cream text-cream hover:bg-cream hover:text-terracotta">
             Chiama per prenotare
           </a>
         </div>

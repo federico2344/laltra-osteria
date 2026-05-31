@@ -13,7 +13,7 @@ const navLinks = [
 export default function Footer() {
   const year = new Date().getFullYear()
   const { social } = restaurant
-  const booking = telLink(restaurant.phoneRaw)
+  const booking = telLink(restaurant.phone)
 
   return (
     <footer
@@ -63,7 +63,7 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-widest text-cream/50">Contatti</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                <a href={`tel:+${restaurant.phoneRaw}`} className="transition hover:text-gold">
+                <a href={telLink(restaurant.phone)} className="transition hover:text-gold">
                   {restaurant.phone}
                 </a>
               </li>
