@@ -12,6 +12,8 @@
         border-color: #8B1A1A !important;
       }
       [class*="Button"][class*="primary"]:hover { background-color: #6B0F0F !important; }
+      /* Nasconde la tab globale "Media": il ristoratore usa solo le librerie per-campo */
+      a[href="#/media"] { display: none !important; }
       #guida-fab {
         position: fixed; bottom: 22px; right: 22px; z-index: 99999;
         background: #8B1A1A; color: #fff; text-decoration: none;
