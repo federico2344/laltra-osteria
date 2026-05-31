@@ -626,9 +626,20 @@
             }
           }
         }
-        setTimeout(hideByButtonText, 800);
-        setTimeout(hideByButtonText, 2000);
-        window.addEventListener('hashchange', function() { setTimeout(hideByButtonText, 500); });
+        setTimeout(hideByButtonText, 400);
+        setTimeout(hideByButtonText, 1200);
+        setTimeout(hideByButtonText, 2500);
+        window.addEventListener('hashchange', function() { setTimeout(hideByButtonText, 300); });
+        // Sorveglianza permanente: ogni volta che la toolbar dell'editor cambia, ripuliamo
+        var editorObs = new MutationObserver(function() { hideByButtonText(); });
+        // Aspettiamo che #nc-root sia in pagina, poi osserviamo solo i suoi cambi
+        var observerTimer = setInterval(function() {
+          var root = document.getElementById('nc-root') || document.querySelector('[class*="App"]');
+          if (root) {
+            clearInterval(observerTimer);
+            editorObs.observe(root, { childList: true, subtree: true });
+          }
+        }, 500);
 
         // Riposiziona sempre i nostri stili come ULTIMI in head
         var observer = new MutationObserver(function(mutations) {
