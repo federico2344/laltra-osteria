@@ -120,24 +120,34 @@ export default function AdminGuidePage() {
             </li>
             <li>Premi il tasto <strong>Invio</strong> della tastiera.</li>
             <li>
-              Vedrai una pagina con il logo del ristorante e un pulsante grande con scritto{' '}
-              <strong>"Login with Email"</strong> (oppure "Accedi con Email"). Cliccalo.
+              Vedrai una pagina con il logo del ristorante e un pulsante grande scuro con scritto{' '}
+              <strong>"Accedi con Netlify Identity"</strong>. Cliccalo.
             </li>
             <li>
-              Compare una finestra che ti chiede <strong>email</strong> e <strong>password</strong>.
-              Sono quelle che ti sono state inviate al momento della consegna del sito.
-              Scrivile esattamente come ti sono state date, attento a maiuscole/minuscole.
+              <strong>Si apre una finestra (modale)</strong> sopra alla pagina. Dentro trovi i
+              campi <strong>email</strong> e <strong>password</strong>. Inserisci le credenziali
+              che ti sono state fornite, attento a maiuscole/minuscole.
             </li>
-            <li>Clicca <strong>"Log in"</strong>. Se le credenziali sono corrette, entri.</li>
+            <li>Clicca <strong>"Log in"</strong>. Se le credenziali sono corrette, entri nel pannello.</li>
           </ol>
 
           <h3>Se hai dimenticato la password</h3>
-          <p>
-            Nella finestra di login clicca su <strong>"Forgot password?"</strong> (Password
-            dimenticata). Inserisci la tua email e clicca invia. Riceverai un'email con un
-            link cliccabile per impostare una nuova password. <strong>Se non vedi l'email,
-            controlla la cartella Spam o Posta indesiderata.</strong>
-          </p>
+          <ol>
+            <li>Sulla pagina di login clicca <strong>"Accedi con Netlify Identity"</strong> per aprire la modale.</li>
+            <li>Dentro alla modale, sotto i campi email/password, clicca su <strong>"Forgot password?"</strong> (Password dimenticata).</li>
+            <li>
+              Inserisci la tua email e clicca <strong>"Send recovery email"</strong>.
+            </li>
+            <li>
+              Controlla la posta. Entro 1-2 minuti ricevi un'email da Netlify
+              (mittente tipo <code>noreply@netlify.com</code>) con un link "Reset your password".
+              <strong> Se non la trovi, guarda nella cartella Spam o Posta indesiderata.</strong>
+            </li>
+            <li>
+              Clicca il link nell'email: ti porta sul sito e si apre automaticamente una finestra
+              per impostare la nuova password. Scrivila due volte e conferma. Sei subito dentro.
+            </li>
+          </ol>
 
           <h3>Consiglio: salva la pagina di accesso</h3>
           <p>
