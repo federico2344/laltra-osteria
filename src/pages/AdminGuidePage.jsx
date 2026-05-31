@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 
 export default function AdminGuidePage() {
-  const navigate = useNavigate()
   const [status, setStatus] = useState('checking')
 
   useEffect(() => {
@@ -17,7 +15,7 @@ export default function AdminGuidePage() {
   useEffect(() => {
     const identity = window.netlifyIdentity
     if (!identity) {
-      navigate('/admin', { replace: true })
+      window.location.replace('/admin/')
       return
     }
 
@@ -25,7 +23,7 @@ export default function AdminGuidePage() {
       if (user) {
         setStatus('ok')
       } else {
-        navigate('/admin', { replace: true })
+        window.location.replace('/admin/')
       }
     }
 
@@ -39,7 +37,7 @@ export default function AdminGuidePage() {
 
     identity.on('init', handle)
     identity.on('login', () => setStatus('ok'))
-    identity.on('logout', () => navigate('/admin', { replace: true }))
+    identity.on('logout', () => window.location.replace('/admin/'))
 
     const timeout = setTimeout(() => {
       const u = identity.currentUser && identity.currentUser()
@@ -47,7 +45,7 @@ export default function AdminGuidePage() {
     }, 1500)
 
     return () => clearTimeout(timeout)
-  }, [navigate])
+  }, [])
 
   if (status !== 'ok') {
     return (
