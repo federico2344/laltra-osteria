@@ -460,6 +460,47 @@
             display: none !important;
           }
 
+          /* ════════════════════════════════════════════════════════════════
+             MODALITÀ HOME — solo card "Raccolte" centrata e grande
+             ════════════════════════════════════════════════════════════════ */
+          html body.admin-home [class*="CollectionMainContainer"],
+          html body.admin-home [class*="CollectionTopContainer"],
+          html body.admin-home [class*="EntryListing"] {
+            display: none !important;
+          }
+          html body.admin-home [class*="CollectionContainer"] {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: flex-start !important;
+            padding: 80px 24px !important;
+            min-height: calc(100vh - 52px) !important;
+            background: var(--bg) !important;
+          }
+          html body.admin-home [class*="CollectionTop"]:not([class*="Container"]),
+          html body.admin-home [class*="SidebarContainer"] {
+            width: min(520px, 92vw) !important;
+            max-width: none !important;
+            padding: 36px 28px !important;
+            border-radius: 18px !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04) !important;
+          }
+          html body.admin-home [class*="CollectionTop"] h2,
+          html body.admin-home [class*="Sidebar"] h2 {
+            text-align: center !important;
+            font-size: 12px !important;
+            letter-spacing: 0.18em !important;
+            padding: 0 0 24px !important;
+            color: var(--ink-faint) !important;
+          }
+          html body.admin-home [class*="NavLink"],
+          html body.admin-home [class*="CollectionListItem"],
+          html body.admin-home a[class*="SidebarNavLink"] {
+            font-size: 17px !important;
+            padding: 16px 20px !important;
+            margin: 4px 0 !important;
+            border-radius: 12px !important;
+          }
+
           /* TOOLBAR salva/pubblica — discreta */
           html body [class*="EditorToolbar"] {
             background: rgba(255, 255, 255, 0.85) !important;
@@ -493,7 +534,7 @@
 
         ensureLast();
 
-        // ── Auto-skip: SOLO dopo click utente sulla sidebar, mai sul load iniziale ──
+        // ── Auto-skip + body class per modalità "home" vs "editor" ──
         var SKIP_MAP = {
           'info': 'restaurant',
           'menu': 'menu',
@@ -502,7 +543,7 @@
         };
         var userClickedSidebar = false;
 
-        // Intercetta i click sulla sidebar: ad ogni click utente alziamo il flag
+        // Intercetta i click sulla sidebar
         document.addEventListener('click', function(ev) {
           var t = ev.target;
           while (t && t !== document.body) {
@@ -515,13 +556,14 @@
         }, true);
 
         function autoSkip() {
+          updateBodyState();
           if (!userClickedSidebar) return;
           try {
             var h = window.location.hash || '';
             var m = h.match(/^#\/collections\/([^/?#]+)\/?$/);
             if (m && SKIP_MAP[m[1]]) {
               var target = '#/collections/' + m[1] + '/entries/' + SKIP_MAP[m[1]];
-              userClickedSidebar = false; // consumiamo il flag
+              userClickedSidebar = false;
               setTimeout(function() {
                 if ((window.location.hash || '') === h) {
                   window.location.replace(target);
@@ -530,6 +572,13 @@
             }
           } catch (e) { console.warn('[auto-skip]', e); }
         }
+        function updateBodyState() {
+          var h = window.location.hash || '';
+          var inEditor = /^#\/collections\/[^/]+\/entries\//.test(h);
+          document.body.classList.toggle('admin-home', !inEditor);
+          document.body.classList.toggle('admin-editor', inEditor);
+        }
+        setTimeout(updateBodyState, 100);
         window.addEventListener('hashchange', autoSkip);
 
         // ── Nasconde pulsanti specifici per testo (Ordina per, Controlla l'anteprima) ──
