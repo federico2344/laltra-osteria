@@ -51,19 +51,37 @@
              ════════════════════════════════════════════════════════════════ */
 
           :root {
-            --bg: #f7f7f5;
+            --bg: #F8F9FA;
             --surface: #ffffff;
-            --surface-2: #f1f1ef;
-            --ink: #37352f;
-            --ink-soft: #787774;
-            --ink-faint: #9b9a97;
-            --line: rgba(55, 53, 47, 0.09);
-            --divider: rgba(55, 53, 47, 0.16);
+            --surface-2: #f1f3f5;
+            --ink: #1A1A1A;
+            --ink-soft: #5A5F66;
+            --ink-faint: #8A8F96;
+            --line: rgba(20, 20, 20, 0.08);
+            --divider: rgba(20, 20, 20, 0.12);
             --brand: #8B1A1A;
             --brand-dark: #6B0F0F;
-            --brand-soft: rgba(139, 26, 26, 0.08);
-            --brand-tint: rgba(139, 26, 26, 0.14);
+            --brand-soft: rgba(139, 26, 26, 0.06);
+            --brand-tint: rgba(139, 26, 26, 0.12);
+            --shadow-card: 0 4px 12px rgba(0,0,0,0.05);
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
+          }
+
+          /* CONTAINER MASTER — centrato, max-width 1400 */
+          html body [class*="AppMainContainer"],
+          html body [class*="App__Main"],
+          html body main {
+            max-width: 1400px !important;
+            margin: 0 auto !important;
+            padding: 32px 28px !important;
+          }
+
+          /* GRID 12 col: sidebar (3) + content (9) */
+          html body [class*="CollectionContainer"]:not([class*="CollectionMain"]):not([class*="CollectionTop"]) {
+            display: grid !important;
+            grid-template-columns: minmax(220px, 3fr) 9fr !important;
+            gap: 28px !important;
+            align-items: start !important;
           }
 
           /* TYPOGRAPHY */
@@ -142,14 +160,26 @@
             border-radius: 0 !important;
           }
 
-          /* Cards reali — la barra in alto con il titolo della raccolta */
+          /* Titolo della raccolta — testo libero, niente card */
           html body [class*="CollectionTopContainer"],
-          html body [class*="CollectionHeading"] {
-            background: var(--surface) !important;
-            border: 1px solid var(--line) !important;
-            border-radius: 10px !important;
+          html body [class*="CollectionHeading"],
+          html body [class*="CollectionTop"][class*="Container"] {
+            background: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
             box-shadow: none !important;
-            padding: 18px 22px !important;
+            padding: 0 0 20px !important;
+          }
+          html body [class*="CollectionTopContainer"] h1,
+          html body [class*="CollectionTopContainer"] h2,
+          html body [class*="CollectionHeading"] h1,
+          html body [class*="CollectionHeading"] h2 {
+            font-size: 32px !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.022em !important;
+            color: var(--ink) !important;
+            margin: 0 !important;
+            padding: 0 !important;
           }
 
           /* Card single — solo entry cards visibili, non i wrapper */
@@ -202,39 +232,47 @@
             background: var(--surface-2) !important;
           }
 
-          /* SIDEBAR "Raccolte" */
-          html body [class*="CollectionTop"],
+          /* SIDEBAR "Raccolte" — card flat con ombra leggera */
+          html body [class*="CollectionTop"]:not([class*="Container"]),
           html body [class*="SidebarContainer"] {
             background: var(--surface) !important;
-            border-radius: 10px !important;
+            border-radius: 12px !important;
             border: 1px solid var(--line) !important;
-            box-shadow: none !important;
-            padding: 8px !important;
+            box-shadow: var(--shadow-card) !important;
+            padding: 12px !important;
+            position: sticky !important;
+            top: 76px !important;
           }
+          /* "RACCOLTE" header — modern caps */
           html body [class*="CollectionTop"] h2,
           html body [class*="Sidebar"] h2 {
-            font-size: 11px !important;
-            font-weight: 600 !important;
-            letter-spacing: 0.06em !important;
+            font-size: 10.5px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.12em !important;
             color: var(--ink-faint) !important;
             text-transform: uppercase !important;
-            padding: 10px 10px 8px !important;
+            padding: 8px 10px 14px !important;
             margin: 0 !important;
           }
 
-          /* SIDEBAR ITEMS — Notion-style pills */
+          /* SIDEBAR ITEMS — pill, align center, padding ariosa */
           html body [class*="NavLink"],
           html body [class*="CollectionListItem"],
           html body a[class*="SidebarNavLink"] {
-            border-radius: 6px !important;
-            padding: 6px 8px !important;
-            margin: 1px 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            border-radius: 8px !important;
+            padding: 10px 12px !important;
+            margin: 2px 0 !important;
             font-size: 14px !important;
             font-weight: 500 !important;
             color: var(--ink) !important;
             background: transparent !important;
             border: none !important;
-            transition: background-color 0.1s var(--ease) !important;
+            border-left: 3px solid transparent !important;
+            transition: background-color 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease) !important;
+            position: relative !important;
           }
           html body [class*="NavLink"]:hover,
           html body [class*="CollectionListItem"]:hover {
@@ -245,10 +283,13 @@
           html body [class*="NavLink"][class*="active"],
           html body [class*="CollectionListItem"][class*="active"],
           html body [class*="NavLink"][aria-current="page"],
-          html body a[class*="SidebarNavLink"][aria-current="page"] {
+          html body a[class*="SidebarNavLink"][aria-current="page"],
+          html body [class*="CollectionListItem"][class*="Active"] {
             background-color: var(--brand-soft) !important;
             color: var(--brand) !important;
             font-weight: 600 !important;
+            border-left-color: var(--brand) !important;
+            padding-left: 9px !important;
           }
 
           /* SEARCH input */
@@ -330,19 +371,30 @@
             background: var(--brand-dark) !important;
           }
 
-          /* LIST ITEMS (es. "Dati principali", piatti, vini) */
-          html body [class*="ListItem"] {
+          /* LIST ITEMS (es. "Dati principali") — card vera con ombra leggera */
+          html body [class*="EntryListing"] [class*="ListItem"] {
+            background: var(--surface) !important;
+            border-radius: 12px !important;
+            border: 1px solid var(--line) !important;
+            padding: 24px 28px !important;
+            font-weight: 500 !important;
+            font-size: 15px !important;
+            box-shadow: var(--shadow-card) !important;
+            transition: box-shadow 0.18s var(--ease), transform 0.18s var(--ease) !important;
+          }
+          html body [class*="EntryListing"] [class*="ListItem"]:hover {
+            background: var(--surface) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06) !important;
+          }
+          /* List items dentro ai form (NON entry cards) restano piatti */
+          html body [class*="ListControl"] [class*="ListItem"],
+          html body [class*="ObjectControl"] [class*="ListItem"] {
             background: var(--surface) !important;
             border-radius: 8px !important;
             border: 1px solid var(--line) !important;
             padding: 10px 14px !important;
-            font-weight: 500 !important;
             box-shadow: none !important;
-            transition: background-color 0.12s var(--ease) !important;
-          }
-          html body [class*="ListItem"]:hover {
-            background: var(--surface-2) !important;
-            transform: none !important;
           }
 
           /* LIST ITEM TOP BAR (sezioni collassate) */
@@ -498,6 +550,24 @@
         }
 
         ensureLast();
+
+        // ── Auto-skip dello step intermedio "lista file" per le file-collections ──
+        // Mapping collezione → entry. Configurato per L'Altra Osteria.
+        var SKIP_MAP = {
+          'info': 'restaurant',
+          'menu': 'menu',
+          'team': 'team',
+          'wines': 'wines',
+        };
+        function autoSkipIntermediate() {
+          var m = (window.location.hash || '').match(/^#\/collections\/([^/?#]+)\/?$/);
+          if (m && SKIP_MAP[m[1]]) {
+            window.location.replace('#/collections/' + m[1] + '/entries/' + SKIP_MAP[m[1]]);
+          }
+        }
+        autoSkipIntermediate();
+        window.addEventListener('hashchange', autoSkipIntermediate);
+
         // Riposiziona sempre i nostri stili come ULTIMI in head
         var observer = new MutationObserver(function(mutations) {
           for (var i = 0; i < mutations.length; i++) {
