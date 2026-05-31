@@ -5,13 +5,16 @@ import { telLink } from '../lib/utils.js'
 
 function HeroSlideshow({ slides, current }) {
   return (
-    <div className="absolute inset-0">
+    <div className="absolute inset-0 bg-charcoal">
       {slides.map((src, i) => (
         <img
           key={src}
           src={src}
           alt=""
           aria-hidden="true"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={i === 0 ? 'high' : 'auto'}
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000"
           style={{ opacity: i === current ? 1 : 0 }}
         />
