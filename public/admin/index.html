@@ -172,19 +172,26 @@
             border-radius: 0 !important;
           }
 
-          /* Header della raccolta: card pulita */
-          html body [class*="CollectionTopContainer"],
-          html body [class*="CollectionHeading"] {
+          /* Header raccolta: SOLO il container esterno è una card, nient'altro
+             dentro deve avere bordo/sfondo (per evitare effetto card-in-card) */
+          html body [class*="CollectionTopContainer"] {
             background: var(--surface) !important;
             border: 1px solid var(--line) !important;
             border-radius: 12px !important;
             box-shadow: var(--shadow-card) !important;
             padding: 22px 26px !important;
           }
+          html body [class*="CollectionTopContainer"] [class*="CollectionHeading"],
+          html body [class*="CollectionTopContainer"] [class*="CollectionTopHeading"],
+          html body [class*="CollectionTopContainer"] [class*="StyledCard"],
+          html body [class*="CollectionTopContainer"] [class*="Card"] {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
           html body [class*="CollectionTopContainer"] h1,
-          html body [class*="CollectionTopContainer"] h2,
-          html body [class*="CollectionHeading"] h1,
-          html body [class*="CollectionHeading"] h2 {
+          html body [class*="CollectionTopContainer"] h2 {
             font-size: 24px !important;
             font-weight: 700 !important;
             letter-spacing: -0.022em !important;
