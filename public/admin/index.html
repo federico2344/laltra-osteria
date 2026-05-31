@@ -94,44 +94,112 @@
             box-shadow: none !important;
             height: 52px !important;
           }
-          html body [class*="AppHeaderNavLink"],
-          html body header a, html body header button {
+          /* Link Contenuti — pulito, senza chrome da bottone */
+          html body header [class*="AppHeaderNavLink"],
+          html body header [class*="AppHeaderButton"] {
             color: var(--ink) !important;
             font-weight: 500 !important;
+            font-size: 14px !important;
             background: transparent !important;
+            border: none !important;
             border-radius: 6px !important;
             padding: 6px 10px !important;
+            box-shadow: none !important;
             transition: background 0.15s var(--ease) !important;
           }
-          html body [class*="AppHeaderNavLink"]:hover {
-            background: var(--surface-2) !important;
+          html body header [class*="AppHeaderNavLink"]:hover,
+          html body header [class*="AppHeaderButton"]:hover {
+            background: rgba(55, 53, 47, 0.06) !important;
+            color: var(--ink) !important;
+            transform: none !important;
+          }
+          html body header [class*="AppHeaderNavLink"].header-link-active {
+            background: rgba(55, 53, 47, 0.08) !important;
             color: var(--ink) !important;
           }
-          html body [class*="AppHeaderNavLink"].header-link-active {
-            background: var(--surface-2) !important;
-            color: var(--ink) !important;
+          /* Avatar */
+          html body [class*="AvatarDropdownButton"] {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 4px !important;
           }
           html body [class*="AvatarDropdownButton"] svg path {
-            fill: var(--ink) !important;
+            fill: var(--ink-soft) !important;
           }
 
-          /* CARDS / CONTAINERS — flat, niente ombre, bordo sottilissimo */
-          html body [class*="Card"],
-          html body [class*="StyledCard"],
-          html body [class*="Container"][class*="Entry"],
+          /* IMPORTANTE: contenitori di LAYOUT trasparenti — niente bordo né bg */
           html body [class*="EditorContainer"],
           html body [class*="EntryFormContainer"],
           html body [class*="ControlPaneContainer"],
-          html body [class*="PreviewPaneContainer"] {
+          html body [class*="PreviewPaneContainer"],
+          html body [class*="CollectionContainer"],
+          html body [class*="CollectionMainContainer"],
+          html body [class*="WorkflowContainer"] {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+          }
+
+          /* Cards reali — la barra in alto con il titolo della raccolta */
+          html body [class*="CollectionTopContainer"],
+          html body [class*="CollectionHeading"] {
+            background: var(--surface) !important;
+            border: 1px solid var(--line) !important;
+            border-radius: 10px !important;
+            box-shadow: none !important;
+            padding: 18px 22px !important;
+          }
+
+          /* Card single — solo entry cards visibili, non i wrapper */
+          html body [class*="EntryListing"] > [class*="StyledCard"],
+          html body [class*="EntryListing"] li > [class*="Card"] {
             border-radius: 10px !important;
             border: 1px solid var(--line) !important;
             background: var(--surface) !important;
             box-shadow: none !important;
-            transition: background 0.15s var(--ease) !important;
           }
-          html body [class*="Card"]:hover, html body [class*="StyledCard"]:hover {
+
+          /* Bottoni di visualizzazione (lista / griglia) — segmented control */
+          html body [class*="ViewControls"],
+          html body [class*="ViewToggle"] {
+            display: inline-flex !important;
+            background: var(--surface-2) !important;
+            border-radius: 8px !important;
+            padding: 2px !important;
+            gap: 0 !important;
+          }
+          html body [class*="ViewControls"] button,
+          html body [class*="ViewToggle"] button {
+            border: none !important;
+            background: transparent !important;
+            border-radius: 6px !important;
+            padding: 6px 10px !important;
+            color: var(--ink-soft) !important;
             box-shadow: none !important;
-            transform: none !important;
+          }
+          html body [class*="ViewControls"] button[class*="active"],
+          html body [class*="ViewToggle"] button[class*="active"],
+          html body [class*="ViewControls"] [class*="selected"] {
+            background: var(--surface) !important;
+            color: var(--ink) !important;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06) !important;
+          }
+
+          /* "Ordina per" pulsante */
+          html body [class*="SortControl"] button,
+          html body button[class*="Sort"] {
+            background: transparent !important;
+            border: 1px solid var(--line) !important;
+            color: var(--ink-soft) !important;
+            font-weight: 500 !important;
+            padding: 6px 12px !important;
+            border-radius: 8px !important;
+          }
+          html body [class*="SortControl"] button:hover,
+          html body button[class*="Sort"]:hover {
+            background: var(--surface-2) !important;
           }
 
           /* SIDEBAR "Raccolte" */
