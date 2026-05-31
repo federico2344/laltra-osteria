@@ -6,26 +6,198 @@
     <meta name="robots" content="noindex" />
     <title>L'Altra Osteria · Pannello di gestione</title>
     <style>
-      [class*="AppHeader"] { background: #2B2622 !important; }
-      [class*="Button"][class*="primary"], button[class*="success"] {
-        background-color: #8B1A1A !important;
-        border-color: #8B1A1A !important;
+      /* ─────────────────────────────────────────────────────────────────
+         Stile pannello admin — pulito, "macOS-like", animazioni leggere
+         ───────────────────────────────────────────────────────────────── */
+
+      :root {
+        --brand: #8B1A1A;
+        --brand-dark: #6B0F0F;
+        --ink: #1d1d1f;
+        --bg: #fbfaf7;
+        --line: #e8e3d8;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
       }
-      [class*="Button"][class*="primary"]:hover { background-color: #6B0F0F !important; }
-      /* Nasconde la tab globale "Media": il ristoratore usa solo le librerie per-campo */
-      a[href="#/media"] { display: none !important; }
-      /* Nasconde la barra di ricerca globale: fuorviante (cerca solo i nomi delle raccolte) */
-      input[type="search"][placeholder*="Cerca"] { display: none !important; }
-      form[role="search"] { display: none !important; }
+
+      /* Typography: stack Apple */
+      body, button, input, textarea, select,
+      [class*="App"], [class*="Sidebar"], [class*="Card"], [class*="Collection"],
+      [class*="Workflow"], [class*="Entry"] {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+                     Roboto, Helvetica, Arial, sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        letter-spacing: -0.005em;
+      }
+
+      body, [class*="AppMainContainer"], [class*="App__Main"] {
+        background: var(--bg) !important;
+      }
+
+      /* Header */
+      [class*="AppHeader"] {
+        background: rgba(29, 29, 31, 0.95) !important;
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+        box-shadow: none !important;
+      }
+
+      /* Card / pannelli / contenitori */
+      [class*="Card"], [class*="StyledCard"],
+      [class*="ListItem"], [class*="Container"][class*="Entry"],
+      [class*="EditorContainer"], [class*="EntryFormContainer"],
+      [class*="ControlPaneContainer"], [class*="PreviewPaneContainer"] {
+        border-radius: 14px !important;
+        border-color: var(--line) !important;
+        transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+      }
+
+      [class*="Card"]:hover, [class*="StyledCard"]:hover {
+        box-shadow: 0 6px 24px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04) !important;
+      }
+
+      /* Bottoni generali */
+      button, [class*="Button"] {
+        font-weight: 500 !important;
+        border-radius: 10px !important;
+        transition: background-color 0.2s var(--ease),
+                    transform 0.2s var(--ease),
+                    box-shadow 0.2s var(--ease),
+                    border-color 0.2s var(--ease) !important;
+      }
+
+      button:hover, [class*="Button"]:hover {
+        transform: translateY(-1px);
+      }
+
+      button:active, [class*="Button"]:active {
+        transform: translateY(0);
+        transition-duration: 0.05s !important;
+      }
+
+      /* Bottoni primari (rosso brand) */
+      [class*="Button"][class*="primary"], button[class*="success"] {
+        background-color: var(--brand) !important;
+        border-color: transparent !important;
+        color: #fff !important;
+        box-shadow: 0 1px 2px rgba(139, 26, 26, 0.18) !important;
+      }
+
+      [class*="Button"][class*="primary"]:hover, button[class*="success"]:hover {
+        background-color: var(--brand-dark) !important;
+        box-shadow: 0 6px 16px rgba(139, 26, 26, 0.22) !important;
+      }
+
+      /* Input, textarea, select */
+      input[type="text"], input[type="email"], input[type="password"],
+      input[type="number"], input[type="search"], input[type="url"],
+      textarea, select {
+        border-radius: 10px !important;
+        border: 1px solid var(--line) !important;
+        background: #fff !important;
+        font-size: 14px !important;
+        padding: 10px 12px !important;
+        transition: border-color 0.18s var(--ease),
+                    box-shadow 0.18s var(--ease) !important;
+      }
+
+      input:focus, textarea:focus, select:focus {
+        outline: none !important;
+        border-color: var(--brand) !important;
+        box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.12) !important;
+      }
+
+      /* Sidebar */
+      [class*="SidebarContainer"] {
+        background: #fcfaf6 !important;
+        border-right: 1px solid var(--line) !important;
+      }
+
+      [class*="NavLink"], [class*="CollectionListItem"] {
+        border-radius: 10px !important;
+        transition: background-color 0.18s var(--ease),
+                    transform 0.18s var(--ease) !important;
+      }
+
+      [class*="NavLink"]:hover, [class*="CollectionListItem"]:hover {
+        background-color: rgba(139, 26, 26, 0.05) !important;
+        transform: translateX(2px);
+      }
+
+      /* Label dei campi */
+      [class*="ControlLabel"], label[class*="Label"] {
+        font-weight: 600 !important;
+        font-size: 13px !important;
+        letter-spacing: 0.04em !important;
+        color: rgba(29, 29, 31, 0.7) !important;
+      }
+
+      /* Hint sotto i campi */
+      [class*="ControlHint"], [class*="FieldHint"] {
+        font-size: 12.5px !important;
+        color: rgba(29, 29, 31, 0.55) !important;
+        margin-top: 6px !important;
+      }
+
+      /* Liste collassabili */
+      [class*="ListItemTopBar"] {
+        border-radius: 10px !important;
+        border: 1px solid var(--line) !important;
+        transition: background-color 0.18s var(--ease) !important;
+      }
+
+      [class*="ListItemTopBar"]:hover {
+        background-color: #f7f3ec !important;
+      }
+
+      /* Comparsa fluida del contenuto */
+      [class*="EditorContainer"], [class*="CollectionContainer"],
+      [class*="WorkflowContainer"], [class*="MediaLibrary"] {
+        animation: adminFadeIn 0.35s var(--ease);
+      }
+
+      @keyframes adminFadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Scrollbar custom */
+      ::-webkit-scrollbar { width: 10px; height: 10px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.15);
+        border-radius: 5px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+      }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
+
+      /* Floating "Guida" button */
       #guida-fab {
         position: fixed; bottom: 22px; right: 22px; z-index: 99999;
-        background: #8B1A1A; color: #fff; text-decoration: none;
-        padding: 12px 18px; border-radius: 999px; font-weight: 600;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        font-size: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-        display: flex; align-items: center; gap: 8px; transition: all 0.2s;
+        background: var(--brand); color: #fff; text-decoration: none;
+        padding: 12px 20px; border-radius: 999px; font-weight: 600;
+        font-size: 14px; letter-spacing: -0.005em;
+        box-shadow: 0 4px 16px rgba(139, 26, 26, 0.28),
+                    0 1px 3px rgba(0,0,0,0.1);
+        display: flex; align-items: center; gap: 8px;
+        transition: background-color 0.2s var(--ease),
+                    transform 0.2s var(--ease),
+                    box-shadow 0.2s var(--ease);
       }
-      #guida-fab:hover { background: #6B0F0F; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
+      #guida-fab:hover {
+        background: var(--brand-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(139, 26, 26, 0.32),
+                    0 2px 6px rgba(0,0,0,0.12);
+      }
+      #guida-fab:active { transform: translateY(0); }
+
+      /* Hide global Media tab + global search */
+      a[href="#/media"] { display: none !important; }
+      input[type="search"][placeholder*="Cerca"] { display: none !important; }
+      form[role="search"] { display: none !important; }
     </style>
   </head>
   <body>
