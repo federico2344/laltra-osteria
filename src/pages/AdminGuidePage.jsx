@@ -188,6 +188,13 @@ export default function AdminGuidePage() {
             l'amministratore tecnico per ripristinare una versione precedente.
           </p>
 
+          <h3>Trovare velocemente un piatto o un vino</h3>
+          <p>
+            Espandi la categoria (es. "Menù Pranzo") e la sezione (es. "Primi"), poi usa la combinazione
+            di tasti <strong>Ctrl+F</strong> (Windows) o <strong>Cmd+F</strong> (Mac) per cercare nel
+            testo della pagina. Il browser evidenzierà al volo il piatto cercato.
+          </p>
+
           <h3>Best practice</h3>
           <ul>
             <li>Tieni sempre attiva la <strong>verifica in due passaggi (2FA)</strong> sul tuo account.</li>
