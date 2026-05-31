@@ -27,15 +27,6 @@
   ],
   "whatsappNumber": "390689524311",
   "whatsappMessage": "Ciao L'Altra Osteria, vorrei prenotare un tavolo per ... persone, in data ... alle ore ...",
-  "theme": {
-    "colorBrand": "#8B1A1A",
-    "colorAccent": "#B8872A",
-    "colorPrice": "#B8872A",
-    "colorBackground": "#FAF6F0",
-    "colorText": "#2B2622",
-    "fontDisplay": "Playfair Display",
-    "fontBody": "Inter"
-  },
   "legal": {
     "companyName": "",
     "vatNumber": "",

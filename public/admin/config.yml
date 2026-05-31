@@ -32,6 +32,8 @@ collections:
           - name: "address"
             label: "Indirizzo"
             widget: "object"
+            collapsed: true
+            summary: "{{street}} — {{city}}"
             fields:
               - { name: "street", label: "Via e numero civico", widget: "string", required: true }
               - { name: "city", label: "CAP e città", widget: "string", required: true }
@@ -44,7 +46,7 @@ collections:
             label: "Orari di apertura"
             label_singular: "Fascia oraria"
             widget: "list"
-            collapsed: false
+            collapsed: true
             summary: "{{day}}"
             min: 1
             fields:
@@ -55,6 +57,7 @@ collections:
           - name: "social"
             label: "Social"
             widget: "object"
+            collapsed: true
             fields:
               - name: "instagram"
                 label: "Link Instagram"
@@ -71,37 +74,11 @@ collections:
                 widget: "string"
                 required: false
                 pattern: ['^https://(www\.)?tripadvisor\.(it|com)/.+', "Deve essere un link Tripadvisor"]
-          - name: "theme"
-            label: "Tema del sito (colori e font)"
-            widget: "object"
-            hint: "Personalizza colori e font del sito. Le combinazioni illeggibili sono a tuo rischio."
-            collapsed: true
-            fields:
-              - { name: "colorBrand", label: "Colore principale (bottoni, accenti)", widget: "color", default: "#8B1A1A" }
-              - { name: "colorAccent", label: "Colore accento (badge, eyebrow)", widget: "color", default: "#B8872A" }
-              - { name: "colorPrice", label: "Colore dei prezzi (menù e vini)", widget: "color", default: "#B8872A" }
-              - { name: "colorBackground", label: "Colore sfondo", widget: "color", default: "#FAF6F0" }
-              - { name: "colorText", label: "Colore testo principale", widget: "color", default: "#2B2622" }
-              - name: "fontDisplay"
-                label: "Font dei titoli"
-                widget: "select"
-                default: "Playfair Display"
-                options:
-                  - "Playfair Display"
-                  - "Cormorant Garamond"
-                  - "DM Serif Display"
-              - name: "fontBody"
-                label: "Font del corpo del testo"
-                widget: "select"
-                default: "Inter"
-                options:
-                  - "Inter"
-                  - "Manrope"
-                  - "Lora"
           - name: "legal"
             label: "Dati aziendali (obbligo di legge)"
             widget: "object"
             hint: "Dati che per legge devono apparire nel footer del sito (D.Lgs. 70/2003)."
+            collapsed: true
             fields:
               - { name: "companyName", label: "Ragione sociale", widget: "string", required: false }
               - { name: "vatNumber", label: "Partita IVA", widget: "string", required: false }
@@ -251,3 +228,35 @@ collections:
                       - { name: "name", label: "Nome vino", widget: "string", required: true }
                       - { name: "description", label: "Descrizione", widget: "string", required: false }
                       - { name: "price", label: "Prezzo €", widget: "number", required: true, value_type: "float" }
+
+  # ---------------------------------------------------------------------------
+  # 5) TEMA DEL SITO (colori e font)
+  # ---------------------------------------------------------------------------
+  - name: "theme"
+    label: "Tema del sito"
+    files:
+      - name: "theme"
+        label: "Colori e Font"
+        file: "src/content/theme.json"
+        fields:
+          - { name: "colorBrand", label: "Colore principale (bottoni, accenti)", widget: "color", default: "#8B1A1A" }
+          - { name: "colorAccent", label: "Colore accento (badge, eyebrow)", widget: "color", default: "#B8872A" }
+          - { name: "colorPrice", label: "Colore dei prezzi (menù e vini)", widget: "color", default: "#B8872A" }
+          - { name: "colorBackground", label: "Colore sfondo", widget: "color", default: "#FAF6F0" }
+          - { name: "colorText", label: "Colore testo principale", widget: "color", default: "#2B2622" }
+          - name: "fontDisplay"
+            label: "Font dei titoli"
+            widget: "select"
+            default: "Playfair Display"
+            options:
+              - "Playfair Display"
+              - "Cormorant Garamond"
+              - "DM Serif Display"
+          - name: "fontBody"
+            label: "Font del corpo del testo"
+            widget: "select"
+            default: "Inter"
+            options:
+              - "Inter"
+              - "Manrope"
+              - "Lora"

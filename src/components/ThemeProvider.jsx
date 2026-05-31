@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { restaurant } from '../data/siteData.js'
+import { theme } from '../data/siteData.js'
 
 const FONT_STACKS = {
   'Playfair Display': '"Playfair Display", Georgia, serif',
@@ -26,7 +26,7 @@ function hexToRgbTriplet(hex) {
 
 export default function ThemeProvider() {
   useEffect(() => {
-    const t = restaurant.theme || {}
+    const t = theme || {}
     const root = document.documentElement
 
     const apply = (cssVar, hex) => {

@@ -554,6 +554,7 @@
           'menu': 'menu',
           'team': 'team',
           'wines': 'wines',
+          'theme': 'theme',
         };
         var userClickedSidebar = false;
 
@@ -879,6 +880,108 @@
         }
       });
       CMS.registerPreviewTemplate('restaurant', RestaurantPreview);
+
+      // ── Anteprima TEMA: mostra esempi reali coi colori e font scelti ─────
+      var FONT_FAMILIES = {
+        'Playfair Display': '"Playfair Display", Georgia, serif',
+        'Cormorant Garamond': '"Cormorant Garamond", Garamond, serif',
+        'DM Serif Display': '"DM Serif Display", "Times New Roman", serif',
+        Inter: 'Inter, system-ui, sans-serif',
+        Manrope: 'Manrope, system-ui, sans-serif',
+        Lora: 'Lora, Georgia, serif',
+      };
+      var ThemePreview = createClass({
+        render: function() {
+          var data = this.props.entry.get('data');
+          var brand = data.get('colorBrand') || '#8B1A1A';
+          var accent = data.get('colorAccent') || '#B8872A';
+          var price = data.get('colorPrice') || '#B8872A';
+          var bg = data.get('colorBackground') || '#FAF6F0';
+          var text = data.get('colorText') || '#2B2622';
+          var fontDisplay = FONT_FAMILIES[data.get('fontDisplay')] || FONT_FAMILIES['Playfair Display'];
+          var fontBody = FONT_FAMILIES[data.get('fontBody')] || FONT_FAMILIES['Inter'];
+
+          var pageStyle = {
+            background: bg, color: text, padding: '2.5rem 2rem',
+            fontFamily: fontBody, minHeight: '100vh',
+          };
+          var headingStyle = { fontFamily: fontDisplay, color: text, margin: 0 };
+          var eyebrowStyle = {
+            color: accent, fontSize: '0.72rem', fontWeight: 700,
+            letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 6,
+          };
+          var sectionLabelStyle = {
+            fontFamily: fontDisplay, color: brand, fontSize: '1rem',
+            fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
+            borderBottom: '1px solid ' + brand + '33', paddingBottom: 6, marginBottom: 12,
+          };
+          var dishRow = {
+            display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+            padding: '12px 0', borderBottom: '1px solid rgba(0,0,0,0.06)',
+          };
+          var dishName = { fontFamily: fontDisplay, fontWeight: 600, fontSize: '1.05rem', margin: 0 };
+          var dishDesc = { color: text, opacity: 0.65, fontSize: '0.88rem', marginTop: 2 };
+          var priceStyle = { color: price, fontFamily: fontDisplay, fontSize: '1.05rem', fontWeight: 600, marginLeft: 16 };
+          var btnStyle = {
+            background: brand, color: '#fff', padding: '12px 24px', borderRadius: 999,
+            fontFamily: fontBody, fontWeight: 600, fontSize: '0.95rem', display: 'inline-block',
+            marginTop: 24,
+          };
+          var badgeStyle = {
+            display: 'inline-block', background: bg, border: '1px solid ' + accent,
+            color: accent, padding: '2px 10px', borderRadius: 999, fontSize: '0.72rem',
+            fontWeight: 600, letterSpacing: '0.05em', marginRight: 8,
+          };
+          var cardStyle = {
+            background: '#fff', padding: '1.5rem 1.75rem', borderRadius: 14,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.04)', marginTop: 18,
+          };
+          var helpStyle = {
+            fontStyle: 'italic', opacity: 0.55, fontSize: '0.78rem', marginTop: 32, textAlign: 'center',
+          };
+
+          return h('div', { style: pageStyle },
+            h('div', { style: eyebrowStyle }, 'Via Cassia · Roma'),
+            h('h1', { style: Object.assign({}, headingStyle, { fontSize: '2.4rem', fontWeight: 700 }) }, "L'Altra Osteria"),
+            h('p', { style: { fontStyle: 'italic', marginTop: 6, opacity: 0.8 } },
+              'Cucina romana, tra tradizione e rivisitazione'),
+            h('p', { style: { marginTop: 12, lineHeight: 1.6, opacity: 0.85 } },
+              "La cucina si ispira alla tradizione regionale italiana, con particolare attenzione " +
+              "ai sapori di Roma, senza rinunciare a creatività e ricerca."),
+            h('a', { style: btnStyle }, '☎ Prenota un tavolo'),
+
+            h('div', { style: cardStyle },
+              h('div', { style: sectionLabelStyle }, 'Antipasti'),
+              h('div', { style: dishRow },
+                h('div', {},
+                  h('h3', { style: dishName }, 'Bruschette'),
+                  h('p', { style: dishDesc }, "Burrata e alici; crema di lardo; pomodorini e basilico.")
+                ),
+                h('span', { style: priceStyle }, '€ 5,00')
+              ),
+              h('div', { style: dishRow },
+                h('div', {},
+                  h('h3', { style: dishName }, 'Tartare di manzo'),
+                  h('p', { style: dishDesc }, "Maionese alla 'nduja, cipolla rossa caramellata.")
+                ),
+                h('span', { style: priceStyle }, '€ 12,00')
+              )
+            ),
+
+            h('div', { style: cardStyle },
+              h('div', { style: badgeStyle }, 'Lo Chef'),
+              h('h2', { style: Object.assign({}, headingStyle, { fontSize: '1.5rem', marginTop: 8 }) }, 'Gianpiero Tomei'),
+              h('p', { style: { marginTop: 8, lineHeight: 1.6, opacity: 0.8, fontSize: '0.92rem' } },
+                "Romano, classe 1979. Dopo aver studiato Giurisprudenza ha scelto di seguire la sua " +
+                "vera passione: la cucina.")
+            ),
+
+            h('p', { style: helpStyle },
+              'Questa è un\'anteprima viva dei colori e font selezionati. Tutte le modifiche si applicano in tempo reale.')
+          );
+        }
+      });
+      CMS.registerPreviewTemplate('theme', ThemePreview);
     </script>
   </body>
 </html>
