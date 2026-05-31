@@ -365,42 +365,14 @@
             background: var(--brand-dark) !important;
           }
 
-          /* LIST ITEMS (es. "Dati principali") — card vera con ombra leggera */
-          html body [class*="EntryListing"] [class*="ListItem"] {
+          /* Entry card (es. "Dati principali") con ombra leggera — SOLO la card principale,
+             niente regole su ListControl/ObjectControl/ListItemTopBar per non rompere i widget */
+          html body [class*="EntryListing"] > [class*="StyledCard"],
+          html body [class*="EntryListing"] [class*="ListItemContainer"] > [class*="Card"] {
             background: var(--surface) !important;
             border-radius: 12px !important;
             border: 1px solid var(--line) !important;
-            padding: 24px 28px !important;
-            font-weight: 500 !important;
-            font-size: 15px !important;
             box-shadow: var(--shadow-card) !important;
-            transition: box-shadow 0.18s var(--ease), transform 0.18s var(--ease) !important;
-          }
-          html body [class*="EntryListing"] [class*="ListItem"]:hover {
-            background: var(--surface) !important;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.06) !important;
-          }
-          /* List items dentro ai form (NON entry cards) restano piatti */
-          html body [class*="ListControl"] [class*="ListItem"],
-          html body [class*="ObjectControl"] [class*="ListItem"] {
-            background: var(--surface) !important;
-            border-radius: 8px !important;
-            border: 1px solid var(--line) !important;
-            padding: 10px 14px !important;
-            box-shadow: none !important;
-          }
-
-          /* LIST ITEM TOP BAR (sezioni collassate) */
-          html body [class*="ListItemTopBar"] {
-            border-radius: 6px !important;
-            border: 1px solid var(--line) !important;
-            background: var(--surface) !important;
-            box-shadow: none !important;
-            transition: background 0.12s var(--ease) !important;
-          }
-          html body [class*="ListItemTopBar"]:hover {
-            background: var(--surface-2) !important;
           }
 
           /* LABELS dei campi */
@@ -465,28 +437,11 @@
           }
 
           /* COMPARSA dolce del contenuto principale */
-          /* HIDE: Media tab, ricerca globale, controlli inutili per file-collections */
+          /* HIDE: solo elementi NON necessari, niente icone interne ai widget */
           html body a[href="#/media"],
           html body [class*="AppHeaderNavList"] > li:nth-child(2),
           html body input[placeholder*="Cerca su tutto"],
-          html body form[role="search"],
-          /* Sort + view toggle (lista/griglia): inutili per raccolte con 1 file */
-          html body [class*="Sort"],
-          html body button[class*="Sort"],
-          html body [class*="ViewControls"],
-          html body [class*="ViewToggle"],
-          html body [class*="ViewStyle"],
-          html body button[class*="View"],
-          html body [aria-label*="lista"],
-          html body [aria-label*="griglia"],
-          html body [aria-label*="list view"],
-          html body [aria-label*="grid view"],
-          html body [aria-label*="Sort"],
-          html body [aria-label*="Ordina"],
-          /* Icona libro-matita Decap accanto a ogni voce sidebar */
-          html body [class*="CollectionListItem"] > svg:first-child,
-          html body [class*="NavLink"] > svg:first-child,
-          html body [class*="SidebarNavLink"] > svg:first-child {
+          html body form[role="search"] {
             display: none !important;
           }
 
@@ -523,30 +478,19 @@
 
         ensureLast();
 
-        // ── Fallback: trova e nasconde elementi per testo (es. "Ordina per") ──
-        function hideByText() {
-          var targets = ['Ordina per', 'Sort by'];
-          var all = document.querySelectorAll('button, div, span, a');
-          for (var i = 0; i < all.length; i++) {
-            var el = all[i];
-            var txt = (el.textContent || '').trim();
-            for (var j = 0; j < targets.length; j++) {
-              if (txt === targets[j] || txt.indexOf(targets[j]) === 0 && txt.length < 30) {
-                // sale finché trova un wrapper utile (button o div con pulsante)
-                var node = el;
-                while (node && node.tagName !== 'BUTTON' && node !== document.body) {
-                  node = node.parentElement;
-                }
-                if (node && node.tagName === 'BUTTON') node.style.display = 'none';
-                else if (el.tagName === 'DIV' || el.tagName === 'SPAN') el.style.display = 'none';
-              }
+        // ── Nasconde "Ordina per" cercando il pulsante per testo, in modo sicuro ──
+        function hideSortButton() {
+          var btns = document.querySelectorAll('button');
+          for (var i = 0; i < btns.length; i++) {
+            var t = (btns[i].textContent || '').trim();
+            if (t === 'Ordina per' || t === 'Sort by' || t.indexOf('Ordina per') === 0) {
+              btns[i].style.display = 'none';
             }
           }
         }
-        // Ritardo per dare a Decap il tempo di renderizzare
-        setTimeout(hideByText, 600);
-        setTimeout(hideByText, 1500);
-        window.addEventListener('hashchange', function() { setTimeout(hideByText, 400); });
+        setTimeout(hideSortButton, 800);
+        setTimeout(hideSortButton, 2000);
+        window.addEventListener('hashchange', function() { setTimeout(hideSortButton, 500); });
 
         // Riposiziona sempre i nostri stili come ULTIMI in head
         var observer = new MutationObserver(function(mutations) {
