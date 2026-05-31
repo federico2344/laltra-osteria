@@ -209,6 +209,197 @@
     </a>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
+      // ── Stili pannello iniettati dinamicamente per vincere la specificità di emotion ──
+      (function injectAdminStyles() {
+        var css = `
+          :root {
+            --brand: #8B1A1A;
+            --brand-dark: #6B0F0F;
+            --bg: #fbfaf7;
+            --line: #e8e3d8;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+          }
+          html body, html body * {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+            -webkit-font-smoothing: antialiased;
+          }
+          html body { background: var(--bg) !important; letter-spacing: -0.005em; }
+
+          /* Header: usa la classe parent reale */
+          html body header,
+          html body [class*="AppHeader"]:not([class*="Content"]):not([class*="Button"]):not([class*="Nav"]):not([class*="Actions"]) {
+            background: rgba(29, 29, 31, 0.96) !important;
+            -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+            backdrop-filter: saturate(180%) blur(20px) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+            box-shadow: none !important;
+          }
+
+          /* Tutti i bottoni */
+          html body button,
+          html body [class*="button"],
+          html body [class*="Button"] {
+            border-radius: 10px !important;
+            font-weight: 500 !important;
+            transition: background-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease) !important;
+          }
+          html body button:hover,
+          html body [class*="button"]:hover,
+          html body [class*="Button"]:hover {
+            transform: translateY(-1px);
+          }
+          html body button:active,
+          html body [class*="Button"]:active {
+            transform: translateY(0);
+          }
+
+          /* Bottoni primari/success rossi */
+          html body [class*="primary"][class*="Button"],
+          html body [class*="Button"][class*="primary"],
+          html body button[class*="success"],
+          html body button[class*="ConfirmationDialog"] {
+            background-color: var(--brand) !important;
+            border-color: transparent !important;
+            color: #fff !important;
+            box-shadow: 0 1px 2px rgba(139, 26, 26, 0.18) !important;
+          }
+          html body [class*="primary"][class*="Button"]:hover,
+          html body [class*="Button"][class*="primary"]:hover,
+          html body button[class*="success"]:hover {
+            background-color: var(--brand-dark) !important;
+            box-shadow: 0 6px 16px rgba(139, 26, 26, 0.25) !important;
+          }
+
+          /* Input, textarea */
+          html body input[type="text"],
+          html body input[type="email"],
+          html body input[type="password"],
+          html body input[type="number"],
+          html body input[type="search"],
+          html body input[type="url"],
+          html body textarea,
+          html body select {
+            border-radius: 10px !important;
+            border: 1px solid var(--line) !important;
+            background: #fff !important;
+            padding: 10px 12px !important;
+            font-size: 14px !important;
+            transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease) !important;
+          }
+          html body input:focus,
+          html body textarea:focus,
+          html body select:focus {
+            outline: none !important;
+            border-color: var(--brand) !important;
+            box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.12) !important;
+          }
+
+          /* Card / contenitori arrotondati */
+          html body [class*="Card"],
+          html body [class*="StyledCard"],
+          html body [class*="ListItem"],
+          html body [class*="Container"][class*="Entry"],
+          html body [class*="EditorContainer"],
+          html body [class*="EntryFormContainer"],
+          html body [class*="ControlPaneContainer"],
+          html body [class*="PreviewPaneContainer"],
+          html body [class*="Collection"][class*="Container"] {
+            border-radius: 14px !important;
+            border-color: var(--line) !important;
+            transition: box-shadow 0.3s var(--ease) !important;
+          }
+          html body [class*="Card"]:hover {
+            box-shadow: 0 6px 24px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04) !important;
+          }
+
+          /* Sidebar collezioni */
+          html body [class*="SidebarContainer"],
+          html body [class*="CollectionContainer"] [class*="Sidebar"] {
+            background: #fcfaf6 !important;
+            border-right: 1px solid var(--line) !important;
+          }
+          html body [class*="NavLink"],
+          html body [class*="CollectionListItem"],
+          html body a[class*="Sidebar"] {
+            border-radius: 10px !important;
+            transition: background-color 0.18s var(--ease), transform 0.18s var(--ease) !important;
+          }
+          html body [class*="NavLink"]:hover,
+          html body [class*="CollectionListItem"]:hover {
+            background-color: rgba(139, 26, 26, 0.05) !important;
+            transform: translateX(2px);
+          }
+
+          /* Label */
+          html body [class*="ControlLabel"],
+          html body label[class*="Label"] {
+            font-weight: 600 !important;
+            font-size: 12px !important;
+            letter-spacing: 0.06em !important;
+            color: rgba(29, 29, 31, 0.65) !important;
+            text-transform: uppercase !important;
+          }
+
+          /* Hint */
+          html body [class*="ControlHint"],
+          html body [class*="FieldHint"] {
+            font-size: 12.5px !important;
+            color: rgba(29, 29, 31, 0.55) !important;
+            margin-top: 6px !important;
+          }
+
+          /* List item top bars */
+          html body [class*="ListItemTopBar"] {
+            border-radius: 10px !important;
+            border: 1px solid var(--line) !important;
+            transition: background-color 0.18s var(--ease) !important;
+          }
+          html body [class*="ListItemTopBar"]:hover {
+            background-color: #f7f3ec !important;
+          }
+
+          /* Animazione comparsa contenuto */
+          html body [class*="EditorContainer"],
+          html body [class*="CollectionContainer"],
+          html body [class*="WorkflowContainer"] {
+            animation: adminFadeIn 0.35s var(--ease);
+          }
+          @keyframes adminFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+
+          /* Scrollbar */
+          ::-webkit-scrollbar { width: 10px; height: 10px; }
+          ::-webkit-scrollbar-track { background: transparent; }
+          ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.18);
+            border-radius: 5px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+          }
+          ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); background-clip: padding-box; }
+
+          /* Hide global Media + global search */
+          html body a[href="#/media"] { display: none !important; }
+          html body input[type="search"][placeholder*="Cerca"] { display: none !important; }
+          html body form[role="search"] { display: none !important; }
+        `;
+
+        // Inserisce in fondo all'head ad ogni init: garantisce di vincere la specificity di emotion
+        function inject() {
+          if (document.getElementById('admin-custom-style')) return;
+          var s = document.createElement('style');
+          s.id = 'admin-custom-style';
+          s.textContent = css;
+          document.head.appendChild(s);
+        }
+        inject();
+        // Reinserisce se Decap rigenera l'head
+        var observer = new MutationObserver(function() { inject(); });
+        observer.observe(document.head, { childList: true });
+      })();
+
       // ── Stile anteprime ──────────────────────────────────────────────────
       CMS.registerPreviewStyle(`
         * { box-sizing: border-box; }
