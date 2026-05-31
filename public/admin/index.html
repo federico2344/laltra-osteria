@@ -557,12 +557,25 @@
         };
         var userClickedSidebar = false;
 
-        // Intercetta i click sulla sidebar
+        // Intercetta i click SOLO se partono dal DOM della sidebar
+        function isInSidebar(node) {
+          while (node && node !== document.body) {
+            var cls = node.className || '';
+            if (typeof cls === 'string' &&
+                (cls.indexOf('Sidebar') !== -1 ||
+                 cls.indexOf('CollectionListItem') !== -1 ||
+                 cls.indexOf('CollectionTop') !== -1)) {
+              return true;
+            }
+            node = node.parentElement;
+          }
+          return false;
+        }
         document.addEventListener('click', function(ev) {
           var t = ev.target;
           while (t && t !== document.body) {
             if (t.tagName === 'A' && t.getAttribute('href') && t.getAttribute('href').indexOf('#/collections/') === 0) {
-              userClickedSidebar = true;
+              if (isInSidebar(t)) userClickedSidebar = true;
               return;
             }
             t = t.parentElement;
