@@ -85,6 +85,24 @@ collections:
               - { name: "fiscalCode", label: "Codice fiscale", widget: "string", required: false }
               - { name: "legalAddress", label: "Sede legale", widget: "string", required: false }
               - { name: "pec", label: "Email PEC", widget: "string", required: false }
+          - name: "introImages"
+            label: "Foto introduzione home (le due tessere verticali)"
+            widget: "object"
+            collapsed: true
+            hint: "Le due foto verticali che appaiono nella sezione 'Benvenuti' della home. Esattamente 2, una a sinistra e una a destra. Consigliato: foto verticali in proporzione 3:4."
+            fields:
+              - name: "left"
+                label: "Foto sinistra"
+                widget: "image"
+                required: false
+                media_folder: "/public/images/general"
+                public_folder: "/images/general"
+              - name: "right"
+                label: "Foto destra"
+                widget: "image"
+                required: false
+                media_folder: "/public/images/general"
+                public_folder: "/images/general"
           - name: "heroSlides"
             label: "Foto slideshow (home)"
             label_singular: "Foto"

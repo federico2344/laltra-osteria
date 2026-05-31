@@ -35,10 +35,10 @@ export default function HomePage() {
           </Reveal>
 
           <Reveal delay={150} className="grid grid-cols-2 gap-4">
-            {/* Due tessere "atmosfera": immagini con fallback colore */}
+            {/* Due tessere "atmosfera": immagini editabili dal CMS */}
             <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-blush">
               <img
-                src="/images/general/1.jpg"
+                src={restaurant.introImages?.left || '/images/general/1.jpg'}
                 alt=""
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -47,7 +47,7 @@ export default function HomePage() {
             </div>
             <div className="mt-8 aspect-[3/4] overflow-hidden rounded-2xl bg-olive/20">
               <img
-                src="/images/general/2.webp"
+                src={restaurant.introImages?.right || '/images/general/2.webp'}
                 alt=""
                 className="h-full w-full object-cover"
                 loading="lazy"

@@ -18,6 +18,10 @@
     "facebook": "https://www.facebook.com/laltraosteriaroma/",
     "tripadvisor": "https://www.tripadvisor.it/Restaurant_Review-g187791-d12501937-Reviews-L_altra_Osteria-Rome_Lazio.html"
   },
+  "introImages": {
+    "left": "/images/general/1.jpg",
+    "right": "/images/general/2.webp"
+  },
   "heroSlides": [
     "/images/hero/slide-1.jpg",
     "/images/hero/slide-2.jpg",
