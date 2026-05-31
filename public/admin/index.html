@@ -12,9 +12,24 @@
         border-color: #8B1A1A !important;
       }
       [class*="Button"][class*="primary"]:hover { background-color: #6B0F0F !important; }
+      #guida-fab {
+        position: fixed; bottom: 22px; right: 22px; z-index: 99999;
+        background: #8B1A1A; color: #fff; text-decoration: none;
+        padding: 12px 18px; border-radius: 999px; font-weight: 600;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        display: flex; align-items: center; gap: 8px; transition: all 0.2s;
+      }
+      #guida-fab:hover { background: #6B0F0F; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
     </style>
   </head>
   <body>
+    <a id="guida-fab" href="/guida-admin" target="_blank" rel="noopener" title="Apri la guida al pannello">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+      </svg>
+      Guida
+    </a>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
       // ── Stile anteprime ──────────────────────────────────────────────────

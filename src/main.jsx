@@ -21,6 +21,7 @@ import WinesPage from './pages/WinesPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
 import CookiePage from './pages/CookiePage.jsx'
+import AdminGuidePage from './pages/AdminGuidePage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="contatti" element={<ContactPage />} />
           <Route path="privacy" element={<PrivacyPage />} />
           <Route path="cookie" element={<CookiePage />} />
+          <Route path="guida-admin" element={<AdminGuidePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

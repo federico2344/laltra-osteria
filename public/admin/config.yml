@@ -119,6 +119,7 @@ collections:
             widget: "list"
             collapsed: true
             summary: "{{title}}"
+            hint: "💡 Trascina le categorie per riordinarle. L'ordine qui = l'ordine dei tab sul sito."
             min: 1
             max: 10
             fields:
@@ -142,6 +143,7 @@ collections:
                     widget: "list"
                     collapsed: true
                     summary: "{{name}} — €{{price}}"
+                    hint: "💡 Trascina i piatti per riordinarli."
                     fields:
                       - { name: "name", label: "Nome piatto", widget: "string", required: true }
                       - { name: "description", label: "Descrizione", widget: "text", required: false }
@@ -163,6 +165,7 @@ collections:
             widget: "list"
             collapsed: true
             summary: "{{name}} — {{role}}"
+            hint: "💡 Trascina per riordinare. L'ordine qui = l'ordine sulla pagina del sito."
             min: 1
             fields:
               - { name: "role", label: "Ruolo (es. Lo Chef)", widget: "string", required: true }
