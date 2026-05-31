@@ -1,7 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 
 export default function AdminGuidePage() {
+  const navigate = useNavigate()
+  const [status, setStatus] = useState('checking')
+
   useEffect(() => {
     const m = document.createElement('meta')
     m.name = 'robots'
@@ -10,6 +14,49 @@ export default function AdminGuidePage() {
     return () => { document.head.removeChild(m) }
   }, [])
 
+  useEffect(() => {
+    const identity = window.netlifyIdentity
+    if (!identity) {
+      navigate('/admin', { replace: true })
+      return
+    }
+
+    const handle = (user) => {
+      if (user) {
+        setStatus('ok')
+      } else {
+        navigate('/admin', { replace: true })
+      }
+    }
+
+    if (identity.currentUser) {
+      const existing = identity.currentUser()
+      if (existing) {
+        setStatus('ok')
+        return
+      }
+    }
+
+    identity.on('init', handle)
+    identity.on('login', () => setStatus('ok'))
+    identity.on('logout', () => navigate('/admin', { replace: true }))
+
+    const timeout = setTimeout(() => {
+      const u = identity.currentUser && identity.currentUser()
+      handle(u)
+    }, 1500)
+
+    return () => clearTimeout(timeout)
+  }, [navigate])
+
+  if (status !== 'ok') {
+    return (
+      <section className="flex min-h-[60vh] items-center justify-center bg-cream">
+        <p className="text-charcoal/60">Verifica accesso…</p>
+      </section>
+    )
+  }
+
   return (
     <>
       <PageHeader
@@ -17,22 +64,22 @@ export default function AdminGuidePage() {
         title="Guida al pannello di gestione"
         subtitle="Tutto quello che puoi fare dal pannello /admin, spiegato passo passo."
       />
-      <section className="container-x py-12 max-w-3xl">
-        <nav className="mb-12 rounded-lg bg-cream-darker p-5 text-sm">
-          <p className="font-semibold uppercase tracking-wider text-xs text-charcoal/60 mb-3">Indice</p>
-          <ul className="space-y-1.5">
-            <li><a href="#accesso" className="text-crimson hover:underline">1. Come entrare nel pannello</a></li>
-            <li><a href="#info" className="text-crimson hover:underline">2. Modificare le informazioni del ristorante</a></li>
-            <li><a href="#menu" className="text-crimson hover:underline">3. Gestire il menù</a></li>
-            <li><a href="#vini" className="text-crimson hover:underline">4. Gestire la carta dei vini</a></li>
-            <li><a href="#team" className="text-crimson hover:underline">5. Gestire chef e sommelier</a></li>
-            <li><a href="#foto" className="text-crimson hover:underline">6. Caricare e gestire le foto</a></li>
-            <li><a href="#pubblica" className="text-crimson hover:underline">7. Salvare e pubblicare</a></li>
-            <li><a href="#tips" className="text-crimson hover:underline">8. Consigli e problemi comuni</a></li>
+      <section className="container-x py-12 max-w-3xl mx-auto">
+        <nav className="mb-12 rounded-xl border border-blush bg-cream/60 p-6 text-sm">
+          <p className="font-semibold uppercase tracking-widest text-xs text-charcoal/60 mb-4">Indice</p>
+          <ul className="space-y-2">
+            <li><a href="#accesso" className="text-terracotta hover:underline">1. Come entrare nel pannello</a></li>
+            <li><a href="#info" className="text-terracotta hover:underline">2. Modificare le informazioni del ristorante</a></li>
+            <li><a href="#menu" className="text-terracotta hover:underline">3. Gestire il menù</a></li>
+            <li><a href="#vini" className="text-terracotta hover:underline">4. Gestire la carta dei vini</a></li>
+            <li><a href="#team" className="text-terracotta hover:underline">5. Gestire chef e sommelier</a></li>
+            <li><a href="#foto" className="text-terracotta hover:underline">6. Caricare e gestire le foto</a></li>
+            <li><a href="#pubblica" className="text-terracotta hover:underline">7. Salvare e pubblicare</a></li>
+            <li><a href="#tips" className="text-terracotta hover:underline">8. Consigli e problemi comuni</a></li>
           </ul>
         </nav>
 
-        <article className="prose prose-charcoal max-w-none">
+        <article className="prose max-w-none">
           <h2 id="accesso">1. Come entrare nel pannello</h2>
           <p>
             Apri il browser e vai a <code>/admin</code> (es. <code>laltraosteria.it/admin</code>).
@@ -51,8 +98,7 @@ export default function AdminGuidePage() {
           </p>
           <ul>
             <li><strong>Nome, tagline, testo introduttivo</strong>: quello che si vede nella home.</li>
-            <li><strong>Telefono</strong>: la versione visualizzata (con spazi) e quella "solo cifre"
-              (usata per i link "chiama"). <em>La versione solo cifre accetta solo numeri.</em></li>
+            <li><strong>Telefono</strong>: la versione visualizzata (con spazi) e quella "solo cifre" (usata per i link "chiama"). La versione solo cifre accetta solo numeri.</li>
             <li><strong>Email</strong>: indirizzo di contatto. Deve essere un'email valida.</li>
             <li><strong>Indirizzo</strong>: via, città e link Google Maps.</li>
             <li><strong>Orari</strong>: ogni riga è una fascia. Spunta "Giorno di chiusura" se non c'è apertura.</li>
@@ -70,25 +116,13 @@ export default function AdminGuidePage() {
             <li><strong>Sezioni</strong> dentro a una categoria: Antipasti, Primi, Secondi, Dolci, ecc.</li>
             <li><strong>Piatti</strong> dentro a una sezione: nome, descrizione, prezzo.</li>
           </ol>
-          <p>
-            <strong>Per modificare un piatto:</strong> espandi la categoria → la sezione → clicca sul piatto, modifica e salva.
-          </p>
-          <p>
-            <strong>Per aggiungere un piatto:</strong> nella sezione, clicca su "Aggiungi Piatto" in fondo alla lista.
-          </p>
-          <p>
-            <strong>Per riordinare:</strong> trascina i piatti tenendoli premuti dall'icona di trascinamento.
-            L'ordine nel pannello = l'ordine sul sito.
-          </p>
-          <p>
-            <strong>Per il menù degustazione:</strong> usa il campo "Prezzo fisso €/persona" invece dei singoli prezzi.
-            Lascia vuoto il prezzo dei singoli piatti.
-          </p>
+          <p><strong>Per modificare un piatto:</strong> espandi la categoria → la sezione → clicca sul piatto, modifica e salva.</p>
+          <p><strong>Per aggiungere un piatto:</strong> nella sezione, clicca su "Aggiungi Piatto" in fondo alla lista.</p>
+          <p><strong>Per riordinare:</strong> trascina i piatti tenendoli premuti dall'icona di trascinamento. L'ordine nel pannello = l'ordine sul sito.</p>
+          <p><strong>Per il menù degustazione:</strong> usa il campo "Prezzo fisso €/persona" invece dei singoli prezzi. Lascia vuoto il prezzo dei singoli piatti.</p>
 
           <h2 id="vini">4. Gestire la carta dei vini</h2>
-          <p>
-            Sezione <strong>🍷 Carta dei Vini → Vini</strong>. Struttura simile al menù:
-          </p>
+          <p>Sezione <strong>🍷 Carta dei Vini → Vini</strong>. Struttura simile al menù:</p>
           <ul>
             <li><strong>Categorie</strong>: Bianchi, Rossi, Rosati, Bollicine, Esteri, ecc.</li>
             <li><strong>Vini</strong> dentro a una categoria: nome, descrizione (produttore/regione), prezzo.</li>
@@ -97,9 +131,7 @@ export default function AdminGuidePage() {
           <p>Tutti i vini devono avere un prezzo numerico.</p>
 
           <h2 id="team">5. Gestire chef e sommelier</h2>
-          <p>
-            Sezione <strong>👨‍🍳 Chef & Sommelier → Persone</strong>. Ogni persona ha:
-          </p>
+          <p>Sezione <strong>👨‍🍳 Chef & Sommelier → Persone</strong>. Ogni persona ha:</p>
           <ul>
             <li><strong>Ruolo</strong>: es. "Lo Chef", "La Sommelier".</li>
             <li><strong>Nome e cognome</strong>.</li>
@@ -109,12 +141,9 @@ export default function AdminGuidePage() {
           <p>Per aggiungere una nuova persona, clicca "Aggiungi Persona" in fondo alla lista.</p>
 
           <h2 id="foto">6. Caricare e gestire le foto</h2>
-          <p>
-            Ogni campo "foto" del pannello ha la sua libreria dedicata:
-          </p>
+          <p>Ogni campo "foto" del pannello ha la sua libreria dedicata:</p>
           <ul>
-            <li><strong>Slideshow home</strong>: solo foto orizzontali e luminose. Le foto scorrono nell'ordine
-              in cui appaiono nella lista. Trascina per riordinare.</li>
+            <li><strong>Slideshow home</strong>: solo foto orizzontali e luminose. Le foto scorrono nell'ordine in cui appaiono nella lista. Trascina per riordinare.</li>
             <li><strong>Foto team</strong>: solo foto verticali del volto.</li>
           </ul>
           <p>
@@ -128,9 +157,7 @@ export default function AdminGuidePage() {
           </p>
 
           <h2 id="pubblica">7. Salvare e pubblicare</h2>
-          <p>
-            Quando hai finito di modificare:
-          </p>
+          <p>Quando hai finito di modificare:</p>
           <ol>
             <li>Controlla l'<strong>anteprima</strong> a destra: mostra come apparirà la modifica sul sito.</li>
             <li>Clicca <strong>"Salva"</strong> in alto a destra.</li>
