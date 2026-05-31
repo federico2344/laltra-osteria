@@ -551,23 +551,6 @@
 
         ensureLast();
 
-        // ── Auto-skip dello step intermedio "lista file" per le file-collections ──
-        // Mapping collezione → entry. Configurato per L'Altra Osteria.
-        var SKIP_MAP = {
-          'info': 'restaurant',
-          'menu': 'menu',
-          'team': 'team',
-          'wines': 'wines',
-        };
-        function autoSkipIntermediate() {
-          var m = (window.location.hash || '').match(/^#\/collections\/([^/?#]+)\/?$/);
-          if (m && SKIP_MAP[m[1]]) {
-            window.location.replace('#/collections/' + m[1] + '/entries/' + SKIP_MAP[m[1]]);
-          }
-        }
-        autoSkipIntermediate();
-        window.addEventListener('hashchange', autoSkipIntermediate);
-
         // Riposiziona sempre i nostri stili come ULTIMI in head
         var observer = new MutationObserver(function(mutations) {
           for (var i = 0; i < mutations.length; i++) {
