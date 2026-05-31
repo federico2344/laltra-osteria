@@ -90,7 +90,7 @@ export default function AdminGuidePage() {
             <li>Modificare orari di apertura</li>
             <li>Aggiungere, modificare o eliminare piatti del menù</li>
             <li>Aggiornare la carta dei vini con nuove etichette e prezzi</li>
-            <li>Cambiare le foto dello slideshow nella home e le foto dello chef e sommelier</li>
+            <li>Cambiare le foto dello slideshow nella home, le due foto della sezione "Benvenuti" e le foto dello chef e sommelier</li>
             <li>Aggiornare i link a Instagram, Facebook, Tripadvisor</li>
             <li><strong>Personalizzare colori e font del sito</strong></li>
             <li>Modificare i dati aziendali (P.IVA, codice fiscale, ecc.) richiesti per legge</li>
@@ -320,6 +320,27 @@ export default function AdminGuidePage() {
             Sono le immagini che scorrono automaticamente in cima alla pagina iniziale del
             sito. Si comportano come delle "diapositive". Vedi sezione 10 per come caricare
             foto. L'<strong>ordine in cui appaiono qui = l'ordine in cui scorrono sul sito</strong>.
+          </p>
+
+          <h3>Foto introduzione home (le due tessere verticali)</h3>
+          <p>
+            Sono le due foto verticali che appaiono nella sezione <strong>"Benvenuti"</strong>
+            della home, accanto al testo di introduzione del ristorante. Sono <strong>esattamente
+            due</strong>: una a sinistra e una a destra, in proporzione 3:4 (verticali).
+          </p>
+          <p>
+            Nel pannello le trovi sotto al gruppo collassato <strong>"Foto introduzione home
+            (le due tessere verticali)"</strong>. Espandilo cliccando la freccia <strong>&gt;</strong>.
+            Trovi due campi:
+          </p>
+          <ul>
+            <li><strong>Foto sinistra</strong>: la prima tessera, quella più in alto a sinistra</li>
+            <li><strong>Foto destra</strong>: la seconda tessera, leggermente sfalsata in basso a destra</li>
+          </ul>
+          <p>
+            Le procedure per caricare o sostituire una foto sono identiche a quelle dello
+            slideshow (vedi sezione 10). Le immagini verranno salvate automaticamente nella
+            cartella corretta, in modo da non mischiarsi con quelle dello slideshow o del team.
           </p>
 
           <h3>Dati aziendali (importante: obbligatori per legge)</h3>
