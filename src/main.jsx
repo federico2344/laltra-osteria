@@ -1,6 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/600.css'
+import '@fontsource/playfair-display/500.css'
+import '@fontsource/playfair-display/600.css'
+import '@fontsource/playfair-display/700.css'
+import '@fontsource/playfair-display/500-italic.css'
+
 import './index.css'
 
 import Layout from './components/Layout.jsx'
@@ -10,6 +19,8 @@ import MenuPage from './pages/MenuPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import WinesPage from './pages/WinesPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
+import PrivacyPage from './pages/PrivacyPage.jsx'
+import CookiePage from './pages/CookiePage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -24,6 +35,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="chi-siamo" element={<AboutPage />} />
           <Route path="vini" element={<WinesPage />} />
           <Route path="contatti" element={<ContactPage />} />
+          <Route path="privacy" element={<PrivacyPage />} />
+          <Route path="cookie" element={<CookiePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

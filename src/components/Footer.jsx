@@ -87,8 +87,22 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-cream/10 pt-6 text-center text-xs text-cream/50">
-          <p>© {year} {restaurant.name}. Tutti i diritti riservati. — P.IVA __________</p>
+        <div className="mt-12 border-t border-cream/10 pt-6 text-center text-xs text-cream/50 space-y-2">
+          {restaurant.legal && (restaurant.legal.companyName || restaurant.legal.vatNumber) && (
+            <p>
+              {restaurant.legal.companyName && <>{restaurant.legal.companyName} — </>}
+              {restaurant.legal.legalAddress && <>{restaurant.legal.legalAddress} — </>}
+              {restaurant.legal.vatNumber && <>P.IVA {restaurant.legal.vatNumber}</>}
+              {restaurant.legal.fiscalCode && <> — C.F. {restaurant.legal.fiscalCode}</>}
+              {restaurant.legal.pec && <> — PEC: {restaurant.legal.pec}</>}
+            </p>
+          )}
+          <p>
+            © {year} {restaurant.name}. Tutti i diritti riservati. —{' '}
+            <Link to="/privacy" className="hover:text-gold underline-offset-2 hover:underline">Privacy Policy</Link>
+            {' · '}
+            <Link to="/cookie" className="hover:text-gold underline-offset-2 hover:underline">Cookie Policy</Link>
+          </p>
         </div>
       </div>
     </footer>

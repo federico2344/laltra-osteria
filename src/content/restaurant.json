@@ -27,5 +27,12 @@
     "/images/hero/slide-5.jpg"
   ],
   "whatsappNumber": "390689524311",
-  "whatsappMessage": "Ciao L'Altra Osteria, vorrei prenotare un tavolo per ... persone, in data ... alle ore ..."
+  "whatsappMessage": "Ciao L'Altra Osteria, vorrei prenotare un tavolo per ... persone, in data ... alle ore ...",
+  "legal": {
+    "companyName": "",
+    "vatNumber": "",
+    "fiscalCode": "",
+    "legalAddress": "",
+    "pec": ""
+  }
 }

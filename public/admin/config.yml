@@ -77,6 +77,16 @@ collections:
                 widget: "string"
                 required: false
                 pattern: ['^https://(www\.)?tripadvisor\.(it|com)/.+', "Deve essere un link Tripadvisor"]
+          - name: "legal"
+            label: "Dati aziendali (obbligo di legge)"
+            widget: "object"
+            hint: "Dati che per legge devono apparire nel footer del sito (D.Lgs. 70/2003)."
+            fields:
+              - { name: "companyName", label: "Ragione sociale", widget: "string", required: false }
+              - { name: "vatNumber", label: "Partita IVA", widget: "string", required: false }
+              - { name: "fiscalCode", label: "Codice fiscale", widget: "string", required: false }
+              - { name: "legalAddress", label: "Sede legale", widget: "string", required: false }
+              - { name: "pec", label: "Email PEC", widget: "string", required: false }
           - name: "heroSlides"
             label: "Foto slideshow (home)"
             label_singular: "Foto"
