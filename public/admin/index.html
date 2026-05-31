@@ -135,8 +135,9 @@
             transform: none !important;
           }
           html body header [class*="AppHeaderNavLink"].header-link-active {
-            background: rgba(55, 53, 47, 0.08) !important;
+            background: transparent !important;
             color: var(--ink) !important;
+            font-weight: 600 !important;
           }
           /* Avatar — niente background, niente quadrato */
           html body [class*="StyledWrapper"][class*="efqlgsg"],
@@ -463,9 +464,22 @@
           /* ════════════════════════════════════════════════════════════════
              MODALITÀ HOME — solo card "Raccolte" centrata e grande
              ════════════════════════════════════════════════════════════════ */
+          /* In home: nascondiamo TUTTO il main e ogni elemento che non sia sidebar */
           html body.admin-home [class*="CollectionMainContainer"],
           html body.admin-home [class*="CollectionTopContainer"],
-          html body.admin-home [class*="EntryListing"] {
+          html body.admin-home [class*="EntryListing"],
+          html body.admin-home [class*="CollectionMain"],
+          html body.admin-home [class*="CollectionTop"][class*="Container"],
+          html body.admin-home [class*="Sort"],
+          html body.admin-home [class*="View"][class*="Control"],
+          html body.admin-home [class*="View"][class*="Toggle"],
+          html body.admin-home [class*="EntryList"],
+          html body.admin-home [class*="StyledCard"],
+          html body.admin-home [class*="CollectionContainer"] > *:not([class*="SidebarContainer"]):not([class*="Sidebar"]):not([class*="CollectionTop"]:not([class*="Container"])) {
+            display: none !important;
+          }
+          /* Fallback più diretto: tutto ciò che segue la sidebar */
+          html body.admin-home [class*="SidebarContainer"] ~ * {
             display: none !important;
           }
           html body.admin-home [class*="CollectionContainer"] {
