@@ -249,33 +249,32 @@
             background: var(--surface-2) !important;
           }
 
-          /* SIDEBAR "Raccolte" — card flat con ombra leggera */
+          /* SIDEBAR "Raccolte" — card più ariosa */
           html body [class*="CollectionTop"]:not([class*="Container"]),
           html body [class*="SidebarContainer"] {
             background: var(--surface) !important;
-            border-radius: 12px !important;
+            border-radius: 14px !important;
             border: 1px solid var(--line) !important;
             box-shadow: var(--shadow-card) !important;
-            padding: 12px !important;
+            padding: 18px 14px !important;
           }
-          /* "RACCOLTE" header — modern caps */
           html body [class*="CollectionTop"] h2,
           html body [class*="Sidebar"] h2 {
-            font-size: 10.5px !important;
+            font-size: 11px !important;
             font-weight: 700 !important;
-            letter-spacing: 0.12em !important;
+            letter-spacing: 0.14em !important;
             color: var(--ink-faint) !important;
             text-transform: uppercase !important;
-            padding: 8px 10px 14px !important;
+            padding: 4px 10px 18px !important;
             margin: 0 !important;
           }
 
-          /* SIDEBAR ITEMS — solo cosmetica, niente layout o transform */
+          /* SIDEBAR ITEMS — voci più grandi, padding generoso, look dashboard */
           html body [class*="NavLink"],
           html body [class*="CollectionListItem"],
           html body a[class*="SidebarNavLink"] {
-            border-radius: 8px !important;
-            font-size: 14px !important;
+            border-radius: 10px !important;
+            font-size: 15px !important;
             font-weight: 500 !important;
             color: var(--ink) !important;
             background: transparent !important;
@@ -291,6 +290,11 @@
             background-color: var(--brand-soft) !important;
             color: var(--brand) !important;
             font-weight: 600 !important;
+          }
+          /* Nascondo l'icona libro-matita Decap accanto a ogni voce (rumore visivo) */
+          html body [class*="CollectionListItem"] > svg:first-child,
+          html body a[class*="SidebarNavLink"] > svg:first-child {
+            display: none !important;
           }
 
           /* SEARCH input */
@@ -488,6 +492,32 @@
         }
 
         ensureLast();
+
+        // ── Auto-skip dello step intermedio: clic su una raccolta → direttamente al form ──
+        var SKIP_MAP = {
+          'info': 'restaurant',
+          'menu': 'menu',
+          'team': 'team',
+          'wines': 'wines',
+        };
+        function autoSkip() {
+          try {
+            var h = window.location.hash || '';
+            // Esempio match: "#/collections/menu" (con o senza trailing slash)
+            var m = h.match(/^#\/collections\/([^/?#]+)\/?$/);
+            if (m && SKIP_MAP[m[1]]) {
+              var target = '#/collections/' + m[1] + '/entries/' + SKIP_MAP[m[1]];
+              // setTimeout dà a Decap il tempo di registrare la route prima del redirect
+              setTimeout(function() {
+                if ((window.location.hash || '') === h) {
+                  window.location.replace(target);
+                }
+              }, 80);
+            }
+          } catch (e) { console.warn('[auto-skip]', e); }
+        }
+        autoSkip();
+        window.addEventListener('hashchange', autoSkip);
 
         // ── Nasconde pulsanti specifici per testo (Ordina per, Controlla l'anteprima) ──
         var TEXT_HIDE = ['Ordina per', 'Sort by', "Controlla l'anteprima", 'Check preview'];
