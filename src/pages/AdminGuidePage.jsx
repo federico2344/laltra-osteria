@@ -60,10 +60,10 @@ export default function AdminGuidePage() {
             <li><a href="#home" className="text-terracotta hover:underline">3. La schermata iniziale (home)</a></li>
             <li><a href="#editor" className="text-terracotta hover:underline">4. La schermata di modifica</a></li>
             <li><a href="#info" className="text-terracotta hover:underline">5. Modificare le informazioni del ristorante</a></li>
-            <li><a href="#tema" className="text-terracotta hover:underline">6. Personalizzare colori e font del sito</a></li>
-            <li><a href="#menu" className="text-terracotta hover:underline">7. Gestire il menù</a></li>
-            <li><a href="#vini" className="text-terracotta hover:underline">8. Gestire la carta dei vini</a></li>
-            <li><a href="#team" className="text-terracotta hover:underline">9. Gestire chef e sommelier</a></li>
+            <li><a href="#menu" className="text-terracotta hover:underline">6. Gestire il menù</a></li>
+            <li><a href="#vini" className="text-terracotta hover:underline">7. Gestire la carta dei vini</a></li>
+            <li><a href="#team" className="text-terracotta hover:underline">8. Gestire chef e sommelier</a></li>
+            <li><a href="#tema" className="text-terracotta hover:underline">9. Personalizzare colori e font del sito (Tema)</a></li>
             <li><a href="#foto" className="text-terracotta hover:underline">10. Caricare e gestire le foto</a></li>
             <li><a href="#pubblica" className="text-terracotta hover:underline">11. Salvare e pubblicare le modifiche</a></li>
             <li><a href="#navigare" className="text-terracotta hover:underline">12. Navigare tra le sezioni</a></li>
@@ -164,13 +164,14 @@ export default function AdminGuidePage() {
           <h2 id="home">3. La schermata iniziale (home del pannello)</h2>
           <p>
             Quando entri vedi una <strong>card bianca centrata sullo schermo</strong> con il
-            titolo <strong>RACCOLTE</strong> e sotto un elenco di 4 voci:
+            titolo <strong>RACCOLTE</strong> e sotto un elenco di 5 voci:
           </p>
           <ul>
-            <li><strong>Informazioni Ristorante</strong> — nome, orari, indirizzo, telefono, foto slideshow, dati aziendali, colori e font del sito</li>
+            <li><strong>Informazioni Ristorante</strong> — nome, orari, indirizzo, telefono, foto slideshow, dati aziendali</li>
             <li><strong>Menù</strong> — tutti i piatti suddivisi per categoria (Pranzo, Serale, Degustazione) e per portata (Antipasti, Primi, ecc.)</li>
             <li><strong>Chef &amp; Sommelier</strong> — nome, biografia e foto del personale</li>
             <li><strong>Carta dei Vini</strong> — vini suddivisi per categoria</li>
+            <li><strong>Tema del sito</strong> — colori e font del sito (con anteprima live)</li>
           </ul>
           <p>
             <strong>Per modificare una sezione</strong>, ti basta cliccare sulla voce che ti
@@ -216,7 +217,10 @@ export default function AdminGuidePage() {
           <h2 id="info">5. Modificare le informazioni del ristorante</h2>
           <p>
             Dalla home centrale clicca <strong>"Informazioni Ristorante"</strong>.
-            Si apre il form con tutti i campi divisi per gruppi. Te li elenco uno per uno.
+            Si apre il form con tutti i campi divisi per gruppi. <strong>I gruppi (Indirizzo,
+            Orari, Social, Dati aziendali) sono collassati di default</strong>: clicca sulla
+            freccia <strong>&gt;</strong> a sinistra del titolo del gruppo per espanderlo.
+            Te li elenco tutti uno per uno.
           </p>
 
           <h3>Dati base</h3>
@@ -327,12 +331,16 @@ export default function AdminGuidePage() {
           </p>
 
           {/* ─────────────────────────────────────────────────────────────── */}
-          <h2 id="tema">6. Personalizzare colori e font del sito</h2>
+          <h2 id="tema">9. Personalizzare colori e font del sito (Tema)</h2>
           <p>
-            Sempre dentro <strong>Informazioni Ristorante → Dati principali</strong>, scorri
-            in basso e trovi una sezione <strong>"Tema del sito (colori e font)"</strong>.
-            Cliccala per espanderla. È una funzione potente: <strong>cambia visivamente
-            tutto il sito</strong>.
+            Dalla home centrale clicca <strong>"Tema del sito"</strong> (la 5ª voce). Si apre
+            una schermata divisa in due: a sinistra i campi per cambiare colori e font, a
+            destra <strong>l'anteprima live</strong> che ti mostra un esempio realistico del
+            sito (titolo, descrizione, antipasti con prezzi, bottone Prenota, scheda Chef) che
+            <strong> si aggiorna istantaneamente</strong> mentre modifichi.
+          </p>
+          <p>
+            È una funzione potente: <strong>cambia visivamente tutto il sito</strong>.
           </p>
 
           <h3>I 4 colori personalizzabili</h3>
@@ -396,7 +404,7 @@ export default function AdminGuidePage() {
           </p>
 
           {/* ─────────────────────────────────────────────────────────────── */}
-          <h2 id="menu">7. Gestire il menù</h2>
+          <h2 id="menu">6. Gestire il menù</h2>
           <p>
             Dalla home centrale clicca <strong>"Menù"</strong>. Si apre la pagina di modifica
             del menù completo del ristorante.
@@ -480,7 +488,7 @@ export default function AdminGuidePage() {
           </p>
 
           {/* ─────────────────────────────────────────────────────────────── */}
-          <h2 id="vini">8. Gestire la carta dei vini</h2>
+          <h2 id="vini">7. Gestire la carta dei vini</h2>
           <p>
             Dalla home clicca <strong>"Carta dei Vini"</strong>. La struttura è simile al menù
             ma con 2 livelli principali (3 per i vini esteri):
@@ -500,7 +508,7 @@ export default function AdminGuidePage() {
           <p>Le procedure per aggiungere/modificare/eliminare/riordinare sono identiche al menù.</p>
 
           {/* ─────────────────────────────────────────────────────────────── */}
-          <h2 id="team">9. Gestire chef e sommelier</h2>
+          <h2 id="team">8. Gestire chef e sommelier</h2>
           <p>
             Dalla home clicca <strong>"Chef &amp; Sommelier"</strong>. Vedi l'elenco delle
             persone. Per ognuna puoi modificare:
