@@ -67,22 +67,6 @@
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
           }
 
-          /* CONTAINER MASTER — centrato, max-width 1400 */
-          html body [class*="AppMainContainer"],
-          html body [class*="App__Main"],
-          html body main {
-            max-width: 1400px !important;
-            margin: 0 auto !important;
-            padding: 32px 28px !important;
-          }
-
-          /* GRID 12 col: sidebar (3) + content (9) */
-          html body [class*="CollectionContainer"]:not([class*="CollectionMain"]):not([class*="CollectionTop"]) {
-            display: grid !important;
-            grid-template-columns: minmax(220px, 3fr) 9fr !important;
-            gap: 28px !important;
-            align-items: start !important;
-          }
 
           /* TYPOGRAPHY */
           html body, html body * {
@@ -188,26 +172,24 @@
             border-radius: 0 !important;
           }
 
-          /* Titolo della raccolta — testo libero, niente card */
+          /* Header della raccolta: card pulita */
           html body [class*="CollectionTopContainer"],
-          html body [class*="CollectionHeading"],
-          html body [class*="CollectionTop"][class*="Container"] {
-            background: transparent !important;
-            border: none !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
-            padding: 0 0 20px !important;
+          html body [class*="CollectionHeading"] {
+            background: var(--surface) !important;
+            border: 1px solid var(--line) !important;
+            border-radius: 12px !important;
+            box-shadow: var(--shadow-card) !important;
+            padding: 22px 26px !important;
           }
           html body [class*="CollectionTopContainer"] h1,
           html body [class*="CollectionTopContainer"] h2,
           html body [class*="CollectionHeading"] h1,
           html body [class*="CollectionHeading"] h2 {
-            font-size: 32px !important;
+            font-size: 24px !important;
             font-weight: 700 !important;
             letter-spacing: -0.022em !important;
             color: var(--ink) !important;
             margin: 0 !important;
-            padding: 0 !important;
           }
 
           /* Card single — solo entry cards visibili, non i wrapper */
@@ -502,18 +484,21 @@
           html body [class*="AppHeaderNavList"] > li:nth-child(2),
           html body input[placeholder*="Cerca su tutto"],
           html body form[role="search"],
-          /* Sort, view toggle (lista/griglia): inutili per raccolte con 1 file */
-          html body [class*="SortControl"],
+          /* Sort + view toggle (lista/griglia): inutili per raccolte con 1 file */
+          html body [class*="Sort"],
+          html body button[class*="Sort"],
           html body [class*="ViewControls"],
           html body [class*="ViewToggle"],
-          html body button[class*="ViewStyle"],
           html body [class*="ViewStyle"],
-          html body button[aria-label*="lista"],
-          html body button[aria-label*="griglia"],
-          html body button[aria-label*="list"],
-          html body button[aria-label*="grid"],
+          html body button[class*="View"],
+          html body [aria-label*="lista"],
+          html body [aria-label*="griglia"],
+          html body [aria-label*="list view"],
+          html body [aria-label*="grid view"],
+          html body [aria-label*="Sort"],
+          html body [aria-label*="Ordina"],
           /* Icona libro-matita Decap accanto a ogni voce sidebar */
-          html body [class*="CollectionListItem"] svg,
+          html body [class*="CollectionListItem"] > svg:first-child,
           html body [class*="NavLink"] > svg:first-child,
           html body [class*="SidebarNavLink"] > svg:first-child {
             display: none !important;
