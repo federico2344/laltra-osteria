@@ -209,8 +209,9 @@
     </a>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      // ── Stili pannello iniettati dinamicamente per vincere la specificità di emotion ──
+      // ── Stili pannello: iniezione robusta per vincere emotion ──
       (function injectAdminStyles() {
+        console.log('[admin-style] init');
         var css = `
           :root {
             --brand: #8B1A1A;
@@ -380,23 +381,38 @@
           }
           ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); background-clip: padding-box; }
 
-          /* Hide global Media + global search */
-          html body a[href="#/media"] { display: none !important; }
-          html body input[type="search"][placeholder*="Cerca"] { display: none !important; }
+          /* Hide global Media (Decap v3: button, non più anchor) + ricerca globale */
+          html body a[href="#/media"],
+          html body [class*="AppHeaderNavList"] > li:nth-child(2),
+          html body input[type="search"][placeholder*="Cerca"],
           html body form[role="search"] { display: none !important; }
         `;
 
-        // Inserisce in fondo all'head ad ogni init: garantisce di vincere la specificity di emotion
-        function inject() {
-          if (document.getElementById('admin-custom-style')) return;
+        function ensureLast() {
+          var existing = document.getElementById('admin-custom-style');
+          if (existing) existing.parentNode.removeChild(existing);
           var s = document.createElement('style');
           s.id = 'admin-custom-style';
           s.textContent = css;
           document.head.appendChild(s);
+          console.log('[admin-style] injected, head children:', document.head.children.length);
         }
-        inject();
-        // Reinserisce se Decap rigenera l'head
-        var observer = new MutationObserver(function() { inject(); });
+
+        ensureLast();
+        // Riposiziona sempre i nostri stili come ULTIMI in head
+        var observer = new MutationObserver(function(mutations) {
+          for (var i = 0; i < mutations.length; i++) {
+            var added = mutations[i].addedNodes;
+            for (var j = 0; j < added.length; j++) {
+              if (added[j].id !== 'admin-custom-style' &&
+                  added[j].tagName === 'STYLE') {
+                // emotion ha aggiunto uno style → reinseriamo i nostri in coda
+                requestAnimationFrame(ensureLast);
+                return;
+              }
+            }
+          }
+        });
         observer.observe(document.head, { childList: true });
       })();
 
