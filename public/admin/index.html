@@ -216,24 +216,65 @@
           :root {
             --brand: #8B1A1A;
             --brand-dark: #6B0F0F;
-            --bg: #fbfaf7;
-            --line: #e8e3d8;
+            --brand-soft: rgba(139, 26, 26, 0.08);
+            --bg: #f5f1ea;
+            --surface: #fffdf9;
+            --surface-soft: #faf6ef;
+            --ink: #1d1d1f;
+            --ink-soft: rgba(29, 29, 31, 0.6);
+            --line: rgba(0, 0, 0, 0.06);
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
           }
           html body, html body * {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
           }
-          html body { background: var(--bg) !important; letter-spacing: -0.005em; }
+          html body {
+            background: var(--bg) !important;
+            letter-spacing: -0.011em;
+          }
 
-          /* Header: usa la classe parent reale */
+          /* Tipografia titoli — più Apple */
+          html body h1, html body h2, html body [class*="Heading"] {
+            font-weight: 700 !important;
+            letter-spacing: -0.022em !important;
+            color: var(--ink) !important;
+          }
+
+          /* Header: vetro nero stile macOS Big Sur */
           html body header,
           html body [class*="AppHeader"]:not([class*="Content"]):not([class*="Button"]):not([class*="Nav"]):not([class*="Actions"]) {
-            background: rgba(29, 29, 31, 0.96) !important;
-            -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
-            backdrop-filter: saturate(180%) blur(20px) !important;
-            border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+            background: rgba(22, 22, 24, 0.88) !important;
+            -webkit-backdrop-filter: saturate(180%) blur(24px) !important;
+            backdrop-filter: saturate(180%) blur(24px) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
             box-shadow: none !important;
+            height: 56px !important;
+          }
+
+          /* Link "Contenuti" nell'header: bianco, no underline blu */
+          html body [class*="AppHeaderNavLink"],
+          html body header a {
+            color: rgba(255,255,255,0.92) !important;
+            font-weight: 500 !important;
+            letter-spacing: -0.01em !important;
+            border-radius: 8px !important;
+            padding: 6px 12px !important;
+            transition: background 0.18s var(--ease) !important;
+          }
+          html body [class*="AppHeaderNavLink"]:hover,
+          html body header a:hover {
+            background: rgba(255,255,255,0.1) !important;
+            color: #fff !important;
+          }
+          html body [class*="AppHeaderNavLink"].header-link-active {
+            background: rgba(255,255,255,0.14) !important;
+          }
+
+          /* Avatar dropdown bianco */
+          html body [class*="AvatarDropdownButton"] svg path {
+            fill: rgba(255,255,255,0.9) !important;
           }
 
           /* Tutti i bottoni */
@@ -295,39 +336,90 @@
             box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.12) !important;
           }
 
-          /* Card / contenitori arrotondati */
+          /* Card / contenitori — Apple-style: bianco crema, ombra grande e soffice */
           html body [class*="Card"],
           html body [class*="StyledCard"],
-          html body [class*="ListItem"],
           html body [class*="Container"][class*="Entry"],
           html body [class*="EditorContainer"],
           html body [class*="EntryFormContainer"],
           html body [class*="ControlPaneContainer"],
-          html body [class*="PreviewPaneContainer"],
-          html body [class*="Collection"][class*="Container"] {
-            border-radius: 14px !important;
-            border-color: var(--line) !important;
-            transition: box-shadow 0.3s var(--ease) !important;
+          html body [class*="PreviewPaneContainer"] {
+            border-radius: 18px !important;
+            border: 1px solid var(--line) !important;
+            background: var(--surface) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04) !important;
+            transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease) !important;
           }
-          html body [class*="Card"]:hover {
-            box-shadow: 0 6px 24px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04) !important;
+          html body [class*="Card"]:hover, html body [class*="StyledCard"]:hover {
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05), 0 16px 40px rgba(0,0,0,0.07) !important;
+            transform: translateY(-1px);
           }
 
-          /* Sidebar collezioni */
+          /* Sidebar "Raccolte" — bianco crema con ombra Apple */
+          html body [class*="CollectionTop"],
           html body [class*="SidebarContainer"],
-          html body [class*="CollectionContainer"] [class*="Sidebar"] {
-            background: #fcfaf6 !important;
-            border-right: 1px solid var(--line) !important;
+          html body aside,
+          html body nav[class*="Side"] {
+            background: var(--surface) !important;
+            border-radius: 18px !important;
+            border: 1px solid var(--line) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04) !important;
+            padding: 8px !important;
           }
+
+          /* Titolo "Raccolte" */
+          html body [class*="CollectionTop"] h2,
+          html body [class*="Sidebar"] h2 {
+            font-size: 22px !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.022em !important;
+            padding: 12px 12px 8px !important;
+            margin: 0 !important;
+          }
+
+          /* Voci sidebar: pill stile macOS */
           html body [class*="NavLink"],
           html body [class*="CollectionListItem"],
-          html body a[class*="Sidebar"] {
+          html body a[class*="SidebarNavLink"] {
             border-radius: 10px !important;
-            transition: background-color 0.18s var(--ease), transform 0.18s var(--ease) !important;
+            padding: 10px 12px !important;
+            margin: 2px 0 !important;
+            font-weight: 500 !important;
+            color: var(--ink) !important;
+            transition: background-color 0.18s var(--ease), color 0.18s var(--ease) !important;
+            border: none !important;
           }
           html body [class*="NavLink"]:hover,
           html body [class*="CollectionListItem"]:hover {
-            background-color: rgba(139, 26, 26, 0.05) !important;
+            background-color: var(--brand-soft) !important;
+            color: var(--ink) !important;
+          }
+          html body [class*="NavLink"][class*="active"],
+          html body [class*="CollectionListItem"][class*="active"],
+          html body [class*="NavLink"][aria-current="page"] {
+            background-color: var(--brand-soft) !important;
+            color: var(--brand) !important;
+            font-weight: 600 !important;
+          }
+
+          /* "Cerca su tutto" → quando appare, stile pill morbido */
+          html body [class*="CollectionSearch"] input {
+            border-radius: 10px !important;
+            background: var(--surface-soft) !important;
+            border: 1px solid var(--line) !important;
+          }
+
+          /* Item card (Dati principali, ecc.) */
+          html body [class*="ListItem"] {
+            background: var(--surface) !important;
+            border-radius: 14px !important;
+            border: 1px solid var(--line) !important;
+            padding: 16px 20px !important;
+            font-weight: 500 !important;
+            transition: all 0.18s var(--ease) !important;
+          }
+          html body [class*="ListItem"]:hover {
+            background: var(--surface-soft) !important;
             transform: translateX(2px);
           }
 
