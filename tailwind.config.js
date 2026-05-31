@@ -15,29 +15,25 @@ export default {
     },
     extend: {
       colors: {
-        // ── Palette estratta direttamente dal logo ──────────────────────────
-        // "L'altra" (script olive-grigio scuro)
         olive: {
           DEFAULT: '#5A5A3C',
           light: '#7A7A52',
         },
-        // "Osteria" (rosso cremisi profondo) — colore primario del brand
+        // Brand color (configurabile via CMS → restaurant.theme.colorBrand)
         terracotta: {
-          DEFAULT: '#8B1A1A',
+          DEFAULT: 'rgb(var(--c-brand) / <alpha-value>)',
           dark:    '#6B0F0F',
         },
-        // Striscia sotto il logo con "ROMA" — beige caldo
         blush: '#EDE0D0',
-
-        // ── Toni di sistema ─────────────────────────────────────────────────
-        cream:   '#FAF6F0',   // sfondo principale (leggermente più caldo)
-        charcoal:'#2B2622',   // testo scuro, footer
-        gold:    '#B8872A',   // accento vini / prezzi (caldo, si sposa col cremisi)
+        // Configurabili via CMS
+        cream:   'rgb(var(--c-cream) / <alpha-value>)',
+        charcoal:'rgb(var(--c-charcoal) / <alpha-value>)',
+        gold:    'rgb(var(--c-gold) / <alpha-value>)',
       },
 
       fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
-        body:    ['Inter', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'serif'],
+        body:    ['var(--font-body)', 'system-ui', 'sans-serif'],
       },
 
       maxWidth: {

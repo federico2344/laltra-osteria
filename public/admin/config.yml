@@ -71,6 +71,32 @@ collections:
                 widget: "string"
                 required: false
                 pattern: ['^https://(www\.)?tripadvisor\.(it|com)/.+', "Deve essere un link Tripadvisor"]
+          - name: "theme"
+            label: "Tema del sito (colori e font)"
+            widget: "object"
+            hint: "Personalizza colori e font del sito. Le combinazioni illeggibili sono a tuo rischio."
+            collapsed: true
+            fields:
+              - { name: "colorBrand", label: "Colore principale (bottoni, accenti)", widget: "color", default: "#8B1A1A" }
+              - { name: "colorAccent", label: "Colore accento (prezzi, badge)", widget: "color", default: "#B8872A" }
+              - { name: "colorBackground", label: "Colore sfondo", widget: "color", default: "#FAF6F0" }
+              - { name: "colorText", label: "Colore testo principale", widget: "color", default: "#2B2622" }
+              - name: "fontDisplay"
+                label: "Font dei titoli"
+                widget: "select"
+                default: "Playfair Display"
+                options:
+                  - "Playfair Display"
+                  - "Cormorant Garamond"
+                  - "DM Serif Display"
+              - name: "fontBody"
+                label: "Font del corpo del testo"
+                widget: "select"
+                default: "Inter"
+                options:
+                  - "Inter"
+                  - "Manrope"
+                  - "Lora"
           - name: "legal"
             label: "Dati aziendali (obbligo di legge)"
             widget: "object"

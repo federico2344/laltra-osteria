@@ -2,15 +2,29 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+/* Body fonts */
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/500.css'
 import '@fontsource/inter/600.css'
+import '@fontsource/manrope/400.css'
+import '@fontsource/manrope/500.css'
+import '@fontsource/manrope/600.css'
+import '@fontsource/lora/400.css'
+import '@fontsource/lora/500.css'
+import '@fontsource/lora/600.css'
+
+/* Display fonts */
 import '@fontsource/playfair-display/500.css'
 import '@fontsource/playfair-display/600.css'
 import '@fontsource/playfair-display/700.css'
 import '@fontsource/playfair-display/500-italic.css'
+import '@fontsource/cormorant-garamond/500.css'
+import '@fontsource/cormorant-garamond/600.css'
+import '@fontsource/cormorant-garamond/700.css'
+import '@fontsource/dm-serif-display/400.css'
 
 import './index.css'
+import ThemeProvider from './components/ThemeProvider.jsx'
 
 import Layout from './components/Layout.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
@@ -26,6 +40,7 @@ import NotFoundPage from './pages/NotFoundPage.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <ThemeProvider />
     <BrowserRouter>
       {/* Riporta in cima ad ogni cambio pagina */}
       <ScrollToTop />

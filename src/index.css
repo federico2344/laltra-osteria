@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Colori brand di default — sovrascrivibili da ThemeProvider via JSON */
+  --c-brand: 139 26 26;        /* terracotta */
+  --c-gold: 184 135 42;        /* gold */
+  --c-cream: 250 246 240;      /* cream */
+  --c-charcoal: 43 38 34;      /* charcoal */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: Inter, system-ui, sans-serif;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
