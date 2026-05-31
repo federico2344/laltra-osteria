@@ -429,11 +429,62 @@
             to   { opacity: 1; transform: translateY(0); }
           }
 
-          /* HIDE: Media tab (Decap v3 button) + ricerca globale fuorviante */
+          /* HIDE: Media tab, ricerca globale, controlli inutili per file-collections */
           html body a[href="#/media"],
           html body [class*="AppHeaderNavList"] > li:nth-child(2),
           html body input[placeholder*="Cerca su tutto"],
-          html body form[role="search"] { display: none !important; }
+          html body form[role="search"],
+          /* Sort, view toggle (lista/griglia): inutili per raccolte con 1 file */
+          html body [class*="SortControl"],
+          html body [class*="ViewControls"],
+          html body [class*="ViewToggle"],
+          html body button[class*="ViewStyle"],
+          html body [class*="ViewStyle"],
+          html body button[aria-label*="lista"],
+          html body button[aria-label*="griglia"],
+          html body button[aria-label*="list"],
+          html body button[aria-label*="grid"],
+          /* Icona libro-matita Decap accanto a ogni voce sidebar */
+          html body [class*="CollectionListItem"] svg,
+          html body [class*="NavLink"] > svg:first-child,
+          html body [class*="SidebarNavLink"] > svg:first-child {
+            display: none !important;
+          }
+
+          /* TOOLBAR salva/pubblica — discreta */
+          html body [class*="EditorToolbar"] {
+            background: rgba(255, 255, 255, 0.85) !important;
+            -webkit-backdrop-filter: saturate(180%) blur(16px) !important;
+            backdrop-filter: saturate(180%) blur(16px) !important;
+            border-bottom: 1px solid var(--line) !important;
+            box-shadow: none !important;
+          }
+
+          /* MOTION più fluida e meno meccanica */
+          html body * {
+            transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+          }
+
+          /* Comparsa più morbida quando cambi sezione */
+          html body [class*="EditorContainer"] > *,
+          html body [class*="CollectionMainContainer"] > * {
+            animation: adminSlideIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+          }
+          @keyframes adminSlideIn {
+            0%   { opacity: 0; transform: translateY(8px) scale(0.997); filter: blur(2px); }
+            60%  { filter: blur(0); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+          }
+
+          /* Stagger leggero per le voci della sidebar al primo load */
+          html body [class*="CollectionListItem"]:nth-child(1) { animation: itemFade 0.35s 0.02s cubic-bezier(0.22, 1, 0.36, 1) both; }
+          html body [class*="CollectionListItem"]:nth-child(2) { animation: itemFade 0.35s 0.06s cubic-bezier(0.22, 1, 0.36, 1) both; }
+          html body [class*="CollectionListItem"]:nth-child(3) { animation: itemFade 0.35s 0.10s cubic-bezier(0.22, 1, 0.36, 1) both; }
+          html body [class*="CollectionListItem"]:nth-child(4) { animation: itemFade 0.35s 0.14s cubic-bezier(0.22, 1, 0.36, 1) both; }
+          @keyframes itemFade {
+            from { opacity: 0; transform: translateX(-4px); }
+            to   { opacity: 1; transform: translateX(0); }
+          }
         `;
 
         function ensureLast() {

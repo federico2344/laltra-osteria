@@ -14,7 +14,7 @@ collections:
   # 1) INFORMAZIONI RISTORANTE
   # ---------------------------------------------------------------------------
   - name: "info"
-    label: "🏠 Informazioni Ristorante"
+    label: "Informazioni Ristorante"
     files:
       - name: "restaurant"
         label: "Dati principali"
@@ -101,7 +101,7 @@ collections:
   # 2) MENÙ
   # ---------------------------------------------------------------------------
   - name: "menu"
-    label: "🍽️ Menù"
+    label: "Menù"
     files:
       - name: "menu"
         label: "Categorie del menù"
@@ -113,7 +113,7 @@ collections:
             widget: "list"
             collapsed: true
             summary: "{{title}}"
-            hint: "💡 Trascina le categorie per riordinarle. L'ordine qui = l'ordine dei tab sul sito."
+            hint: "Trascina le categorie per riordinarle. L'ordine qui = l'ordine dei tab sul sito."
             min: 1
             max: 10
             fields:
@@ -137,7 +137,7 @@ collections:
                     widget: "list"
                     collapsed: true
                     summary: "{{name}} — €{{price}}"
-                    hint: "💡 Trascina i piatti per riordinarli."
+                    hint: "Trascina i piatti per riordinarli."
                     fields:
                       - { name: "name", label: "Nome piatto", widget: "string", required: true }
                       - { name: "description", label: "Descrizione", widget: "text", required: false }
@@ -147,7 +147,7 @@ collections:
   # 3) TEAM
   # ---------------------------------------------------------------------------
   - name: "team"
-    label: "👨‍🍳 Chef & Sommelier"
+    label: "Chef & Sommelier"
     files:
       - name: "team"
         label: "Persone"
@@ -159,7 +159,7 @@ collections:
             widget: "list"
             collapsed: true
             summary: "{{name}} — {{role}}"
-            hint: "💡 Trascina per riordinare. L'ordine qui = l'ordine sulla pagina del sito."
+            hint: "Trascina per riordinare. L'ordine qui = l'ordine sulla pagina del sito."
             min: 1
             fields:
               - { name: "role", label: "Ruolo (es. Lo Chef)", widget: "string", required: true }
@@ -177,7 +177,7 @@ collections:
   # 4) CARTA DEI VINI
   # ---------------------------------------------------------------------------
   - name: "wines"
-    label: "🍷 Carta dei Vini"
+    label: "Carta dei Vini"
     files:
       - name: "wines"
         label: "Vini"
