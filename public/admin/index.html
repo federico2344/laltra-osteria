@@ -575,7 +575,12 @@
           var t = ev.target;
           while (t && t !== document.body) {
             if (t.tagName === 'A' && t.getAttribute('href') && t.getAttribute('href').indexOf('#/collections/') === 0) {
-              if (isInSidebar(t)) userClickedSidebar = true;
+              if (isInSidebar(t)) {
+                userClickedSidebar = true;
+                // Se l'URL è già uguale al link cliccato, hashchange NON scatta
+                // → forziamo l'autoSkip manualmente con un piccolo delay
+                setTimeout(autoSkip, 60);
+              }
               return;
             }
             t = t.parentElement;
