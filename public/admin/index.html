@@ -316,10 +316,14 @@
             box-shadow: 0 0 0 2px var(--brand-soft) !important;
           }
 
-          /* COLOR PICKER: rispettiamo il padding che Decap mette inline (75px/70px). */
+          /* COLOR PICKER: rispettiamo il padding inline di Decap e diamo altezza
+             sufficiente al box per contenere il quadratino senza che esca fuori */
           html body [aria-label="color field"] input[type="text"] {
             padding-left: 75px !important;
             padding-right: 70px !important;
+            min-height: 52px !important;
+            padding-top: 14px !important;
+            padding-bottom: 14px !important;
           }
 
           /* SELECT (react-select usato da Decap): l'input interno serve solo per
