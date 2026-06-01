@@ -2,12 +2,29 @@ import { useEffect } from 'react'
 import { theme } from '../data/siteData.js'
 
 const FONT_STACKS = {
+  // Display (titoli)
   'Playfair Display': '"Playfair Display", Georgia, serif',
   'Cormorant Garamond': '"Cormorant Garamond", Garamond, serif',
   'DM Serif Display': '"DM Serif Display", "Times New Roman", serif',
+  'Bodoni Moda': '"Bodoni Moda", "Bodoni MT", serif',
+  Marcellus: 'Marcellus, "Trajan Pro", serif',
+  Fraunces: 'Fraunces, "Times New Roman", serif',
+  'EB Garamond': '"EB Garamond", Garamond, serif',
+  'Tenor Sans': '"Tenor Sans", "Trajan Pro", serif',
+  Italiana: 'Italiana, "Bodoni MT", serif',
+  Petrona: 'Petrona, Georgia, serif',
+  // Body (corpo testo)
   Inter: 'Inter, system-ui, sans-serif',
   Manrope: 'Manrope, system-ui, sans-serif',
   Lora: 'Lora, Georgia, serif',
+  Karla: 'Karla, system-ui, sans-serif',
+  Nunito: 'Nunito, system-ui, sans-serif',
+  Mulish: 'Mulish, system-ui, sans-serif',
+  Lato: 'Lato, system-ui, sans-serif',
+  'Source Sans 3': '"Source Sans 3", system-ui, sans-serif',
+  'Work Sans': '"Work Sans", system-ui, sans-serif',
+  'Plus Jakarta Sans': '"Plus Jakarta Sans", system-ui, sans-serif',
+  'Public Sans': '"Public Sans", system-ui, sans-serif',
 }
 
 function hexToRgbTriplet(hex) {

@@ -323,7 +323,8 @@
           }
 
           /* SELECT (react-select usato da Decap): l'input interno serve solo per
-             filtrare/typeahead, non deve avere i nostri stili da text input */
+             filtrare/typeahead. Lo nascondiamo del tutto visivamente per evitare
+             il quadratino bianco accanto al valore selezionato */
           html body input[role="combobox"] {
             padding: 0 !important;
             border: 0 !important;
@@ -332,12 +333,17 @@
             font-size: 14px !important;
             min-height: 0 !important;
             height: auto !important;
+            min-width: 0 !important;
+            width: 0 !important;
+            opacity: 0 !important;
             border-radius: 0 !important;
           }
-          /* Il "valore selezionato" del select non deve essere coperto */
+          /* Il "valore selezionato" del select deve essere ben visibile */
           html body [class*="singleValue"] {
             position: relative !important;
             z-index: 1 !important;
+            color: var(--ink) !important;
+            font-size: 14px !important;
           }
 
           /* INPUTS / TEXTAREA / SELECT */
@@ -841,9 +847,24 @@
           'Playfair Display': '"Playfair Display", Georgia, serif',
           'Cormorant Garamond': '"Cormorant Garamond", Garamond, serif',
           'DM Serif Display': '"DM Serif Display", "Times New Roman", serif',
+          'Bodoni Moda': '"Bodoni Moda", "Bodoni MT", serif',
+          Marcellus: 'Marcellus, "Trajan Pro", serif',
+          Fraunces: 'Fraunces, "Times New Roman", serif',
+          'EB Garamond': '"EB Garamond", Garamond, serif',
+          'Tenor Sans': '"Tenor Sans", "Trajan Pro", serif',
+          Italiana: 'Italiana, "Bodoni MT", serif',
+          Petrona: 'Petrona, Georgia, serif',
           Inter: 'Inter, system-ui, sans-serif',
           Manrope: 'Manrope, system-ui, sans-serif',
           Lora: 'Lora, Georgia, serif',
+          Karla: 'Karla, system-ui, sans-serif',
+          Nunito: 'Nunito, system-ui, sans-serif',
+          Mulish: 'Mulish, system-ui, sans-serif',
+          Lato: 'Lato, system-ui, sans-serif',
+          'Source Sans 3': '"Source Sans 3", system-ui, sans-serif',
+          'Work Sans': '"Work Sans", system-ui, sans-serif',
+          'Plus Jakarta Sans': '"Plus Jakarta Sans", system-ui, sans-serif',
+          'Public Sans': '"Public Sans", system-ui, sans-serif',
         };
         var css = '* { box-sizing: border-box; }' +
           'body { font-family: ' + (FF[t.fontBody] || FF.Inter) + ';' +
@@ -1075,9 +1096,24 @@
         'Playfair Display': '"Playfair Display", Georgia, serif',
         'Cormorant Garamond': '"Cormorant Garamond", Garamond, serif',
         'DM Serif Display': '"DM Serif Display", "Times New Roman", serif',
+        'Bodoni Moda': '"Bodoni Moda", "Bodoni MT", serif',
+        Marcellus: 'Marcellus, "Trajan Pro", serif',
+        Fraunces: 'Fraunces, "Times New Roman", serif',
+        'EB Garamond': '"EB Garamond", Garamond, serif',
+        'Tenor Sans': '"Tenor Sans", "Trajan Pro", serif',
+        Italiana: 'Italiana, "Bodoni MT", serif',
+        Petrona: 'Petrona, Georgia, serif',
         Inter: 'Inter, system-ui, sans-serif',
         Manrope: 'Manrope, system-ui, sans-serif',
         Lora: 'Lora, Georgia, serif',
+        Karla: 'Karla, system-ui, sans-serif',
+        Nunito: 'Nunito, system-ui, sans-serif',
+        Mulish: 'Mulish, system-ui, sans-serif',
+        Lato: 'Lato, system-ui, sans-serif',
+        'Source Sans 3': '"Source Sans 3", system-ui, sans-serif',
+        'Work Sans': '"Work Sans", system-ui, sans-serif',
+        'Plus Jakarta Sans': '"Plus Jakarta Sans", system-ui, sans-serif',
+        'Public Sans': '"Public Sans", system-ui, sans-serif',
       };
       var ThemePreview = createClass({
         render: function() {
