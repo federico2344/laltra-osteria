@@ -316,13 +316,28 @@
             box-shadow: 0 0 0 2px var(--brand-soft) !important;
           }
 
-          /* COLOR PICKER: aggiungiamo padding-left all'input del codice esadecimale
-             così il testo non finisce dietro al quadratino del colore.
-             NOTA: NON tocchiamo la posizione del quadratino — lo lasciamo gestire a Decap */
-          html body [class*="ColorControl"] input[type="text"],
-          html body [data-testid="color-input"] input,
-          html body [class*="color-control"] input[type="text"] {
-            padding-left: 52px !important;
+          /* COLOR PICKER: rispettiamo il padding che Decap mette inline (75px/70px). */
+          html body [aria-label="color field"] input[type="text"] {
+            padding-left: 75px !important;
+            padding-right: 70px !important;
+          }
+
+          /* SELECT (react-select usato da Decap): l'input interno serve solo per
+             filtrare/typeahead, non deve avere i nostri stili da text input */
+          html body input[role="combobox"] {
+            padding: 0 !important;
+            border: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            font-size: 14px !important;
+            min-height: 0 !important;
+            height: auto !important;
+            border-radius: 0 !important;
+          }
+          /* Il "valore selezionato" del select non deve essere coperto */
+          html body [class*="singleValue"] {
+            position: relative !important;
+            z-index: 1 !important;
           }
 
           /* INPUTS / TEXTAREA / SELECT */
