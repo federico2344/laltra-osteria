@@ -316,29 +316,13 @@
             box-shadow: 0 0 0 2px var(--brand-soft) !important;
           }
 
-          /* COLOR PICKER: il valore esadecimale deve apparire DOPO il quadratino */
-          html body [class*="ColorControl"],
-          html body [class*="ColorSwatch"] ~ input,
-          html body input[type="text"][class*="Color"] {
-            padding-left: 56px !important;
-          }
-          /* Quadratino del colore: assicuriamoci che resti a sinistra e non sovrasti */
-          html body [class*="ColorSwatch"],
-          html body [class*="ColorControl"] [class*="swatch"],
-          html body [class*="ColorControl"] > div:first-child {
-            position: absolute !important;
-            left: 8px !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            width: 36px !important;
-            height: 28px !important;
-            border-radius: 6px !important;
-            z-index: 2 !important;
-          }
-          /* Wrapper del color widget: relative per posizionamento assoluto */
-          html body [class*="ColorControl"],
-          html body [class*="color"][class*="Control"] {
-            position: relative !important;
+          /* COLOR PICKER: aggiungiamo padding-left all'input del codice esadecimale
+             così il testo non finisce dietro al quadratino del colore.
+             NOTA: NON tocchiamo la posizione del quadratino — lo lasciamo gestire a Decap */
+          html body [class*="ColorControl"] input[type="text"],
+          html body [data-testid="color-input"] input,
+          html body [class*="color-control"] input[type="text"] {
+            padding-left: 52px !important;
           }
 
           /* INPUTS / TEXTAREA / SELECT */
